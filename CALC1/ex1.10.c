@@ -16,5 +16,9 @@ int main() {
     printf("Valor da altura: ");
     scanf("%d", &altura);
 
-    area = ((bMaior*bMenor)) * altura;
+    area = ((bMaior+bMenor) * altura)/2;
+
+    printf("Area = %d", area);
+
+    return 0;
 }

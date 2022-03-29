@@ -2,19 +2,19 @@
 #include <stdlib.h>
 
 int main() {
-    int base;
-    int altura;
-    int area;
+    float base;
+    float altura;
+    float area;
 
     printf("Valor da base: ");
-    scanf("%d", &base);
+    scanf("%f", &base);
 
     printf("Valor da altura: ");
-    scanf("%d", &altura);
+    scanf("%f", &altura);
 
     area = (base*altura)/2;
 
-    printf("Area = %d", area);
+    printf("Area = %.2f", area);
 
     return 0;
 }

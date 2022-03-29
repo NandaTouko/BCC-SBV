@@ -2,22 +2,22 @@
 #include <stdlib.h>
 
 int main(){
-    int altura;
-    int largura;
-    int area;
-    int perimetro;
+    float largura;
+    float altura;
+    float perimetro;
+    float area;
 
     printf("Valor da largura: ");
-    scanf("%d", &largura);
+    scanf("%f", &largura);
 
     printf("Valor da altura: ");
-    scanf("%d", &altura);
+    scanf("%f", &altura);
 
     perimetro = (2*largura) + (2*altura);
     area = largura * altura;
 
-    printf("Perimetro = %d\n", perimetro);
-    printf("Area = %d", area);
+    printf("Perimetro = %.2f\n", perimetro);
+    printf("Area = %.2f", area);
 
     return 0;
 }
