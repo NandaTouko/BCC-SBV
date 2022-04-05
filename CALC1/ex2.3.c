@@ -11,10 +11,10 @@ int main() {
     printf("Entre com outro numero: ");
     scanf("%d", &n2);
 
-    if(n1 <= n2){
-        printf("Ordem crescente: %d <= %d", n1, n2);
+    if(n1 >= n2){
+        printf("Ordem decrescente: %d >= %d", n1, n2);
     }else{
-        printf("Ordem crescente: %d <= %d", n2, n1);
+        printf("Ordem decrescente: %d >= %d", n2, n1);
     }
 
     return 0;
