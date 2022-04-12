@@ -16,7 +16,7 @@ int main() {
     soma = n1 + n2;
 
     if(soma > 10) {
-        printf("Os numeros fornecidos foram: %.2f e %.2f", n1, n2);
+        printf("Os numeros fornecidos foram %.2f e %.2f", n1, n2);
     }else{
         sub = n1 - n2;
         printf("A subtracao entre %.2f e %.2f e igual a %.2f", n1, n2, sub);
