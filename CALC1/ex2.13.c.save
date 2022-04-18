@@ -16,14 +16,14 @@ int main() {
     printf("Nota Optativa: ");
     scanf("%f", &avOptativa);
 
-    if(avOptativa > 0){
+    if(avOptativa < 0){
         if(av1 < av2){
-            if(avOptativa > av1){
-                av1 = avOptativa;
-            }
-        }else{
             if(avOptativa > av2){
                 av2 = avOptativa;
+            }
+        }else{
+            if(avOptativa > av1){
+                av1 = avOptativa;
             }
         }
     }
