@@ -17,6 +17,8 @@ int main(){
     unidade = num%10;
 
     if(num >= 1 && num <= 3999){
+        printf("%d = ", num);
+
         if(milhar == 1000){
             printf("M");
         }else if(milhar == 2000){
