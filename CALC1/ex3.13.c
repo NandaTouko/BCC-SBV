@@ -5,7 +5,9 @@ int main() {
     int n1;
     int n2;
     int n1True;
-    int par = 0;
+    int contM2 = 0;
+    int contM3 = 0;
+    int contM4 = 0;
 
     printf("N1: ");
     scanf("%d", &n1);
@@ -18,11 +20,21 @@ int main() {
 
     for(int i = n1True; i <= n2; i++){
         if(i%2 == 0){
-            par++;
+            contM2++;
+        }
+
+        if(i%3 == 0){
+            contM3++;
+        }
+
+        if(i%4 == 0){
+            contM4++;
         }
     }
 
-    printf("Numeros pares entre %d e %d: %d", n1True, n2, par);
+    printf("Multiplos de 2: %d\n", contM2);
+    printf("Multiplos de 3: %d\n", contM3);
+    printf("Multiplos de 4: %d\n", contM4);
 
     return 0;
 }
