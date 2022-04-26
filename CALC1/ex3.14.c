@@ -13,11 +13,11 @@ int main() {
     printf("N2: ");
     scanf("%d", &n2);
 
-    n1True = (n1 <= n2) ? n1 : n2;
-    n2 = (n1 <= n2) ? n2 : n1;
+    n1True = (n1 < n2) ? n1 : n2;
+    n2 = (n1 < n2) ? n2 : n1;
 
     for(int i = n1True; i <= n2; i++){
-        soma += i;
+        soma += i; 
     }
 
     printf("Somatorio entre %d e %d: %d", n1True, n2, soma);
