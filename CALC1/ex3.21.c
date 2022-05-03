@@ -23,6 +23,22 @@ int main() {
 
             printf("\n");
         }
+    }else if(altura < 0){
+        for(int i = 0; i > altura; i--){
+            for(int j = 0; j > i; j--){
+                printf(" ");
+            }
+
+            for(int k = i; k > altura; k--){
+                printf("*");
+            }
+
+            for(int l = altura; l < (i-1); l++){
+                printf("*");
+            }
+
+            printf("\n");
+        }
     }
 
     return 0;
