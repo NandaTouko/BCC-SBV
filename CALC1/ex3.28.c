@@ -49,6 +49,7 @@ int main() {
 		printf("Saldo final: -R$%.2f\n", saldoInicial*-1);
 		printf("Conta devedora.");
 	}else{
+		printf("Saldo final: R$%.2f\n", saldoInicial);
 		printf("Conta preferencial.");
 	}
 
