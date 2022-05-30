@@ -15,9 +15,9 @@ int main() {
     decompoeTempo(total, &h, &m, &s);
 
     printf("%d segundo(s) corresponde(m) a:\n", total);
-    printf("\t%d hora(s)\n", h);
-    printf("\t%d minuto(s)\n", m);
-    printf("\t%d segundo(s)", s);
+    printf("    %d hora(s)\n", h);
+    printf("    %d minuto(s)\n", m);
+    printf("    %d segundo(s)", s);
 
     return 0;
 }

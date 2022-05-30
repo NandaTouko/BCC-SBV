@@ -14,14 +14,14 @@ int main() {
     scanf("%d", &n2);
 
     printf("Antes:\n");
-    printf("\tn1: %d\n", n1);
-    printf("\tn2: %d\n", n2);
+    printf("    n1: %d\n", n1);
+    printf("    n2: %d\n", n2);
 
     trocar(&n1, &n2);
 
     printf("Depois:\n");
-    printf("\tn1: %d\n", n1);
-    printf("\tn2: %d\n", n2);
+    printf("    n1: %d\n", n1);
+    printf("    n2: %d\n", n2);
 
     return 0;
 }
