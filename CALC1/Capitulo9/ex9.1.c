@@ -9,10 +9,14 @@ int main() {
     printf("String: ");
     fgets(str, 41, stdin); // (string que recebe o conteudo, tamanho, dispositivo de entrada( stdin = teclado ))
 
-    str[strlen(str)-1] = "\0"; // tirar o pulo de linha que o buffer coloca
+    str[strlen(str)-1] = '\0'; // tirar o pulo de linha que o buffer coloca
 
     for(int i = 0; i < 4; i++){
-
+        if(i == 3){
+            printf("%c.", str[i]);
+        }else{
+            printf("%c, ", str[i]);
+        }
     }
 
     return 0;
