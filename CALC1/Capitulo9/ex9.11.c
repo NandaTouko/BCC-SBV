@@ -10,21 +10,32 @@ int main(){
   char termino[] = "fim";
   int i = 0;
   int ocorrencias;
+  int comparacao = 1;
 
   printf("Caractere: ");
-  scanf("%c", &caractere);
+  scanf(" %c", &caractere);
 
-  printf("Frase: ");
-  fgets(frase[i], 41, stdin);
-
-  while(strcmp(frase[i], termino) != 0){
-    i++;
-
+  do{
     printf("Frase: ");
     fgets(frase[i], 41, stdin);
 
     frase[i][strlen(frase[i])-1] = '\0';
-  }
+
+    i++;
+
+    comparacao = strcmp(frase[i], termino);
+  }while(comparacao != 0);
+
+  // printf("%s", termino);
+
+  // while(strcmp(frase[i], termino) != 0){
+  //   i++;
+
+  //   printf("Frase: ");
+  //   fgets(frase[i], 41, stdin);
+
+  //   frase[i][strlen(frase[i])-1] = '\0';
+  // }
 
   for(int c = 0; c < i; c++){
     ocorrencias = contarOcorrencias(frase[c], caractere);
