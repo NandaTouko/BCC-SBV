@@ -17,4 +17,15 @@ public class Complexo {
         
         return c;
     }
+    
+    /* Problema: Só printa no terminal
+    void imprime() {
+        System.out.println(real + " + " + imaginario + "j");
+    }
+    */
+    
+    String converteParaTexto() {
+        String texto = real + " + " + imaginario + "j";
+        return texto;
+    }
 }
