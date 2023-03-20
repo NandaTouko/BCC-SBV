@@ -25,7 +25,7 @@ int main()
     imprimeArray(arrayOriginal, n);
 
     // Ordenando pelo metodo de insertion sort
-    printf("\n\nOrdenacao por InsertionSort(): ");
+    printf("\n\nOrdenacao por InsertionSort: ");
     printf("\nArray Original[%d]:", n);
     imprimeArray(arrayOriginal, n);
     copiaValoresEntreArrays(arrayOriginal, arrayA, n);
@@ -34,7 +34,7 @@ int main()
     imprimeArray(arrayA, n);
 
     // Ordenando pelo metodo de insertion alternativo
-    printf("\n\nOrdenacao por InsertionSortAlternativo(): ");
+    printf("\n\nOrdenacao por InsertionSort Alternativo: ");
     printf("\nArray Original[%d]:", n);
     imprimeArray(arrayOriginal, n);
     copiaValoresEntreArrays(arrayOriginal, arrayA, n);
@@ -43,12 +43,39 @@ int main()
     imprimeArray(arrayA, n);
 
     // Ordenando pelo metodo de Merge Sort sem sentinela
-    printf("\n\nOrdenacao por MergeSortRecursivo(): ");
+    printf("\n\nOrdenacao por MergeSort Sem Sentinela: ");
     printf("\nArray Original[%d]:", n);
     imprimeArray(arrayOriginal, n);
     copiaValoresEntreArrays(arrayOriginal, arrayA, n);
-    mergeSortRecursivo(arrayA, 0, n-1);
+    mergeSortRecursivoSS(arrayA, 0, n-1, n);
     printf("\nArray Ordenado[%d]:", n);
+    imprimeArray(arrayA, n);
+
+    // Ordenando pelo metodo de Merge Sort com sentinela
+    printf("\n\nOrdenacao por MergeSort Com Sentinela: ");
+    printf("\nArray Original[%d]:", n);
+    imprimeArray(arrayOriginal, n);
+    copiaValoresEntreArrays(arrayOriginal, arrayA, n);
+    mergeSortRecursivoCS(arrayA, 0, n-1);
+    printf("\nArray Ordenado[%d]:", n);
+    imprimeArray(arrayA, n);
+
+    // Ordenando pelo metodo de insertion sort decrescente
+    printf("\n\nOrdenacao por Insertion Sort Decrescente: ");
+    printf("\nArray Original[%d]:", n);
+    imprimeArray(arrayOriginal, n);
+    copiaValoresEntreArrays(arrayOriginal, arrayA, n);
+    insertionSortDecrescente(arrayA, n);
+    printf("\nArray Decrescente[%d]:", n);
+    imprimeArray(arrayA, n);
+
+    // Ordenando pelo metodo de Merge Sort sem sentinela decrescente
+    printf("\n\nOrdenacao por Merge Sort Sem Sentinela Decrescente: ");
+    printf("\nArray Original[%d]:", n);
+    imprimeArray(arrayOriginal, n);
+    copiaValoresEntreArrays(arrayOriginal, arrayA, n);
+    mergeSortRecursivoSSDecrescente(arrayA, 0, n-1, n);
+    printf("\nArray Decrescente[%d]:", n);
     imprimeArray(arrayA, n);
 
     return 0;

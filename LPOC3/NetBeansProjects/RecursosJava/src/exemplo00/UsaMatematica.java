@@ -8,6 +8,8 @@ public class UsaMatematica {
         System.out.println(m.somar(2, 3));
         System.out.println(m.somar(2, 3, 4));
         System.out.println(m.somar(array));
+        
+        // a classe chama o método
         System.out.println(Math.addExact(2,3));
         
         // Solucao Alternativa
