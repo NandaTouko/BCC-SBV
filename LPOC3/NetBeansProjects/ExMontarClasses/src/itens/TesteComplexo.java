@@ -15,6 +15,6 @@ public class TesteComplexo {
         b.imaginario = 5.0;
         
         Complexo s = a.somar(b);
-        s.imprime();
+        s.converteParaTexto();
     }
 }
