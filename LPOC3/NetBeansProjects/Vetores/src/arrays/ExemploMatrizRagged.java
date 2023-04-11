@@ -7,13 +7,12 @@ public class ExemploMatrizRagged {
         Scanner teclado = new Scanner(System.in);
         int [][] ragged = new int[3][];
         // definir quantidades de colunas diferentes
-        ragged[0] =  new int[4];
-        ragged[1] =  new int[2];
-        ragged[2] =  new int[3];
+        ragged[0] = new int[4];
+        ragged[1] = new int[2];
+        ragged[2] = new int[3];
         
         // leitura dos dados
         for(int i = 0; i < ragged.length; i++){
-            // troco ragged[0].length por ragged[i].length -> cada linha vai ter uma qtd de coluna diferente
             for(int j = 0; j < ragged[i].length; j++){
                 System.out.print("(" + i + "," + j + "): ");
                 ragged[i][j] = teclado.nextInt();
@@ -27,5 +26,15 @@ public class ExemploMatrizRagged {
             }
             System.out.println();
         }
+        
+        for(int i = 0; i < ragged.length; i++){
+            int [] linha = ragged[i];
+            for(int j = 0; j < linha.length; j++){
+                int celula = ragged[i][j];
+                 System.out.print(celula + " ");
+            }
+            System.out.println();
+        }
+        
     }
 }
