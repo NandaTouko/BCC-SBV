@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1681171672 source:c:\users\bv120133\downloads\projeto01-3sum\main.c
+	<stdio.h>
+	<stdlib.h>
+	"threesum.h"
+
+1681171758 c:\users\bv120133\downloads\projeto01-3sum\threesum.h
+
+1681171646 source:c:\users\bv120133\downloads\projeto01-3sum\threesum.c
+	<stdio.h>
+	<stdlib.h>
+	"threesum.h"
+
+1681764947 source:c:\users\bv3024679\documents\bcc-sbv\panc3\projeto01-3sum\main.c
+	<stdio.h>
+	<stdlib.h>
+	"threesum.h"
+
+1681171846 c:\users\bv3024679\documents\bcc-sbv\panc3\projeto01-3sum\threesum.h
+
+1681765397 source:c:\users\bv3024679\documents\bcc-sbv\panc3\projeto01-3sum\threesum.c
+	<stdio.h>
+	<stdlib.h>
+	"threesum.h"
+
