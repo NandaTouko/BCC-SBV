@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "threesum.h"
 
-/* Variáveis Globais */
+/* Variï¿½veis Globais */
 int *A;
 
 int main()
@@ -13,14 +13,15 @@ int main()
     printf("\n Definir o tamanho do Array: ");
     scanf("%d", &n);
 
-    A = (int*) malloc (n * sizeof(int));
+    A = (int *)malloc(n * sizeof(int));
 
-    for(int i=0; i<n; i++) {
-        printf(" Entre com o %d elemento do Array: ", i+1);
+    for (int i = 0; i < n; i++)
+    {
+        printf(" Entre com o %d elemento do Array: ", i + 1);
         scanf("%d", &A[i]);
     }
 
-    /*TO DO: Conforme forem implementando, removam os comentários */
+    /*TO DO: Conforme forem implementando, removam os comentï¿½rios */
 
     ImprimeArray(A, "Array Infor.   []", n);
 
@@ -30,13 +31,12 @@ int main()
 
     printf("\n\n ---3SUM - Melhorado:---\n");
 
-    MergeSortRecursivo(A, 0, (n-1), n);
+    MergeSortRecursivo(A, 0, (n - 1), n);
     ImprimeArray(A, "Array Ord.   []", n);
 
     treeSumMelhorado(A, n);
 
-    //ImprimeQtdOperacoes();
+    ImprimeQtdOperacoes();
 
     return 0;
 }
-
