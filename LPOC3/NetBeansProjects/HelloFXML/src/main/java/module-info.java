@@ -5,6 +5,5 @@ module br.edu.ifsp.sbv.hellofxml {
 
     opens br.edu.ifsp.sbv.hellofxml to javafx.fxml;
     opens br.edu.ifsp.sbv.gui to javafx.fxml;
-    
     exports br.edu.ifsp.sbv.hellofxml;
 }

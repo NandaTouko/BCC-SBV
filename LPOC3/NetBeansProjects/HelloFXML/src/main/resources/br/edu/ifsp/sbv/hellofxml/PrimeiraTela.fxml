@@ -5,13 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.sbv.gui.PrimeiraTelaController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.sbv.gui.PrimeiraTelaController">
    <children>
-      <ImageView fx:id="imgViewBatata" fitHeight="221.0" fitWidth="281.0" layoutX="180.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgViewLuffy" fitHeight="260.0" fitWidth="199.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@batata.png" />
+            <Image url="@luffy.png" />
          </image>
       </ImageView>
-      <Button fx:id="buttonOk" layoutX="275.0" layoutY="314.0" mnemonicParsing="false" onAction="#exibir" text="Ok" />
+      <Button fx:id="buttonOk" layoutX="108.0" layoutY="306.0" mnemonicParsing="false" onAction="#exibir" text="Ok" />
    </children>
 </AnchorPane>

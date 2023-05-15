@@ -7,10 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         URL url = getClass().getResource("PrimeiraTela.fxml");
@@ -18,11 +16,12 @@ public class App extends Application {
         
         Scene cena = new Scene(raiz);
         
-        stage.setTitle("Batata");
+        stage.setTitle("One Piece");
         stage.setScene(cena);
         stage.show();
     }
-    
+
+
     public static void main(String[] args) {
         launch();
     }
