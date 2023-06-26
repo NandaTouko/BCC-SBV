@@ -11,7 +11,19 @@ int numComparacoesIS,
     numComparacoesSS,
     numTrocasSS,
     numComparacoesBS,
-    numTrocasBS;
+    numTrocasBS,
+    numComparacoesShakeS,
+    numTrocasShakeS,
+    numComparacoesCS,
+    numTrocasCS,
+    numComparacoesQS,
+    numTrocasQS,
+    numComparacoesSelS,
+    numTrocasSelS,
+    numComparacoesHS,
+    numTrocasHS,
+    numComparacoesRS,
+    numTrocasRS;
 
 /* Prototipos de Funcoes */
 void geraArrayAleatorio(int arrayOriginal[], int n);
@@ -29,3 +41,16 @@ void ShellSort(int arrayA[], int inc, int segCorrente, int n);
 void ShellSortStepByStep(int arrayA[], int inc, int segCorrente, int n);
 void BubbleSort(int arrayA[], int n);
 void BubbleSortStepByStep(int arrayA[], int n);
+void ShakeSort(int arrayA[], int n);
+void ShakeSortSetpByStep(int arrayA[], int n);
+void CombSort(int arrayA[], int n);
+void CombSortStepByStep(int arrayA[], int n);
+void QuickSort(int arrayA[], int inicio, int fim);
+void QuickSortStepByStep(int arrayA[], int inicio, int fim, int n);
+void SelectSort(int arrayA[], int n);
+void SelectSortStepByStep(int arrayA[], int n);
+void HeapSort(int arrayA[], int n);
+void HeapSortStepByStep(int arrayA[], int n);
+void RadixSort(int arrayA[], int n);
+void RadixSortStepByStep(int arrayA[], int n);
+void MMZSort(int arrayA[], int n);
