@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +26,8 @@ public class GeradorStrings {
 
   }
 
-  public static List<String> gerarStringsK(int k, char... a) throws IllegalArgumentException {
+  public static List<String> gerarStringsK(int k, char... a)
+          throws IllegalArgumentException {
 
     if (k < 0) {
       throw new IllegalArgumentException("comprimento negativo");
@@ -38,28 +38,23 @@ public class GeradorStrings {
     }
 
     List<String> s = new ArrayList<>();
-    int qtdCombinacao = (int) Math.pow(2, k);
-    String newString = "";
-    
-    for(int l = 0; l < qtdCombinacao; l+=2){    
-      for(int j = 0; j < a.length; j++){
-        for(int i = 0; i < k; i++){
-          if(l >= 2){
-            newString += a[(j+i)/2];
-          } else {
-            newString += a[j];
-          }
-        }
-
-        s.add(newString);
-        newString = "";
-      }
-    }
-    
 
     // implementação...
+    gerarStrings("", s, k, a);
+
     return s;
 
+  }
+
+  private static void gerarStrings(String stringAtual, List<String> s, int k, char[] a) {
+    if (k == 0) {
+      s.add(stringAtual);
+      return;
+    }
+
+    for (int i = 0; i < a.length; i++) {
+      gerarStrings(stringAtual + a[i], s, k - 1, a);
+    }
   }
 
   public static List<String> gerarStringsAteK(int k, char... a) throws IllegalArgumentException {
@@ -75,6 +70,10 @@ public class GeradorStrings {
     List<String> s = new ArrayList<>();
 
     // implementação...
+    for (int i = 0; i <= k; i++) {
+      gerarStrings("", s, i, a);
+    }
+
     return s;
 
   }
