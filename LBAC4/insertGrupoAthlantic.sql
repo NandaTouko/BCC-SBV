@@ -1,4 +1,5 @@
 USE ATHLANTIC;
+
 INSERT INTO PATROCINADORES
 (PTS_TELEFONE, PTS_SITE_URL, PTS_CPF_CNPJ, PTS_PESSOA_FISICA, PTS_DATA_CADASTRO, PTS_NOME, PTS_EMAIL, PTS_ATIVO)
 VALUES
@@ -54,6 +55,7 @@ VALUES
 ('Luana', 'Luana@5','luanaIfsp@gmail.com','luana@5', 1),
 ('Aline', 'Aline@5','alineifsp@gmail.com','Aline@5', 1);
 
+-- Minha
 INSERT INTO PATROCINIOS (
 PAT_IMAGEM,
 PAT_DATAFINAL,
@@ -70,6 +72,11 @@ FK_PATROCINADORES_PTS_ID
 ('imgSorvetinho.jpg', '2025-06-01', '2023-06-01', 755.88, 'Sorvetes Pós Jogos', 'Após todos os jogos, os jogadores e técnicos poderão tomar sorvete.', 4, 4),
 ('imgFilmes.jpg', '2026-08-31', '2023-08-31', 75.88, 'Desconto em Filmes', 'Todos os jogadores e técnicos receberão um desconto de 70% em filmes', 5, 5);
 
+SELECT P.*, A.ATL_NOME AS 'ATLÉTICA', PA.PTS_NOME AS 'PATROCINADOR'
+FROM PATROCINIOS P
+INNER JOIN ATLETICAS A ON P.FK_ATLETICAS_ATL_ID = A.ATL_ID
+INNER JOIN PATROCINADORES PA ON P.FK_PATROCINADORES_PTS_ID = PA.PTS_ID;
+
 INSERT INTO EVENTOS_ESPORTIVOS(EVE_PRECO, EVE_DATAEVENTO, EVE_TIPOENTRADA, EVE_DESCRICAO, EVE_IMAGEMPROMOCIONAL, EVE_NOME, EVE_ENDERECOEVENTO, FK_ATLETICAS_ATL_ID)
 VALUES(1000, '2023-11-30', 1, 'Campeonato de futsal universitário, destinado às atléticas das instituições de ensino superior de São João da Boa Vista.', 'imagem.jpg', 'Taça São João de Futsal Universitário', 'Av. Brasília, 10', 1),
 (2000, '2023-12-02', 1, 'Campeonato de vôlei universitário, destinado às atléticas das instituições de ensino superior de São João da Boa Vista.', 'imagem.jpg', 'Taça São João de Vôlei Universitário', 'Rua Peixoto de Castro, 25', 1),
@@ -84,9 +91,16 @@ VALUES(1000, '2023-11-23', 1, 'Evento beneficente, voltado para a arrecadação 
 (4000, '2023-12-19', 0, 'Evento beneficente, voltado para a arrecadação de vestimentas para pessoas necessitadas.', 'imagem.jpg', 'Arrecada São João', 'Av. Castro Alves, 419', 1),
 (5000, '2024-01-07', 0, 'Festa para a recepção dos novos estudantes.', 'imagem.jpg', 'Calourada 2024', 'Rua Getúlio Vargas, 281', 1);
 
+-- Minha
 INSERT INTO PATROCINADORES_EVENTOS(FK_EVENTOS_SOCIAIS_EVS_ID, FK_EVENTOS_ESPORTIVOS_EVE_ID, FK_PATROCINADORES_PTS_ID)
 VALUES (1, NULL, 1),
 (NULL, 3, 2),
 (4, NULL, 4),
 (5, 2, 3),
 (NULL, 1, 3);
+
+SELECT PE.PTE_ID, ES.EVE_DESCRICAO AS 'DESCRIÇÃO EVENTO SOCIAL', EE.EVE_DESCRICAO AS 'DESCRIÇÃO EVENTO ESPORTIVO', P.PTS_NOME AS 'PATROCINADOR'
+FROM PATROCINADORES_EVENTOS PE
+LEFT JOIN EVENTOS_SOCIAIS ES ON PE.FK_EVENTOS_SOCIAIS_EVS_ID = ES.EVS_ID
+LEFT JOIN EVENTOS_ESPORTIVOS EE ON PE.FK_EVENTOS_ESPORTIVOS_EVE_ID = EE.EVE_ID
+INNER JOIN PATROCINADORES P ON PE.FK_PATROCINADORES_PTS_ID = P.PTS_ID;
