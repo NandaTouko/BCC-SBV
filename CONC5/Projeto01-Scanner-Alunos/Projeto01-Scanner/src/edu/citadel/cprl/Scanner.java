@@ -288,7 +288,7 @@ public class Scanner {
                         break;
                         
                     case '.':
-                        symbol = Symbol.semicolon;
+                        symbol = Symbol.dot;
                         source.advance();
                         break;
                     // </editor-fold>
@@ -307,13 +307,13 @@ public class Scanner {
                     // <editor-fold defaultstate="collapsed" desc="Implementação do Passo 04">
                     
                     case '\'':
-                        scanCharLiteral();
+                        text = scanCharLiteral();
                         symbol = Symbol.charLiteral;
                         source.advance();
                         break;
                         
                     case '\"':
-                        scanStringLiteral();
+                        text = scanStringLiteral();
                         symbol = Symbol.stringLiteral;
                         source.advance();
                         break;
@@ -472,17 +472,44 @@ public class Scanner {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
         
-        String s = "";
-        System.out.println("entrou");
-                    
-        do {
-            source.advance();
-            System.out.println((char) source.getChar());
-            String c = scanCharLiteral();
-            s.concat( c );
-            System.out.println(s);
-        } while((char) source.getChar() == '\"');
+        // insere a aspa dupla de abertura
+        char c = (char) source.getChar();
+        scanBuffer.append( c );
+        source.advance();
         
+        checkGraphicChar( source.getChar() );
+        c = (char) source.getChar();
+        
+        while(c != '\"'){
+            // é de escape?
+            switch (c) {
+                case '\\':
+                    scanBuffer.append( scanEscapedChar() );
+                    break;
+                case '\"':
+                    source.advance();
+                    c = (char) source.getChar();
+                    
+                    throw error( errorMsg );
+                default:
+                    scanBuffer.append( c );
+                    source.advance();
+                    break;
+            }
+            
+            c = (char) source.getChar();
+        }
+        
+        checkGraphicChar( c );
+
+        // é a aspa dupla de fechamento?
+        if ( c == '\"' ) {
+            scanBuffer.append( c );
+            source.advance();
+        } else {
+            throw error( errorMsg );
+        }
+
         return scanBuffer.toString();
         
         // </editor-fold>
