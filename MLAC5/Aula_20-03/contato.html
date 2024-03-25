@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+		<title>Contato</title>
+		<meta charset="UTF-8" />
+	</head>
+	
+	<body>
+		<header style="padding: 10px 20px; background-color: lightgreen; border-radius: 10px">
+			<h2>Entre em Contato!</h2>
+		</header>
+		
+		<main style="padding: 5px 40px">
+			<form>
+				<h3>Informações Pessoais</h3>
+				
+				<p>
+					<label for="nome">Nome:</label>
+					<input type="text" name="nome" id="nome" placeholder="Digite seu nome..." size="50" required="required" />
+				</p>
+				
+				<p>
+					<label for="sexo">Sexo:</label>
+					
+					<input type="radio" name="sexo" id="feminino" value="F" />
+					<label for="feminino">Feminino</label>
+					<input type="radio" name="sexo" id="masculino" value="M" />
+					<label for="masculino">Masculino</label>
+					<input type="radio" name="outro" id="outro" value="O" />
+					<label for="outro">Outro</label>
+				</p>
+				
+				<p>
+					<label for="foto">Foto:</label>
+					<input type="file" name="foto" id="foto" required="required" accept="image/png, image/jpeg" />
+				</p>
+				
+				<p>
+					<label for="aniversario">Data de Aniversário:</label>
+					<input type="date" name="aniversario" id="aniversario" />
+				</p>
+				
+				<p>
+					<label for="idade">Idade:</label>
+					<input type="number" name="idade" id="idade" min="0" />
+				</p>
+				
+				<p>
+					<label for="telefone">Telefone:</label>
+					<input type="tel" name="telefone" id="telefone" placeholder="(xx) xxxx-xxxx" required="required" />
+				</p>
+				
+				<p>
+					<label for="linkedin">LinkedIn:</label>
+					<input type="url" name="linkedin" id="linkedin" size="50" />
+				</p>
+				
+				<p>
+					<label for="email">E-mail:</label>
+					<input type="email" name="email" id="email" maxlength="255" placeholder="Digite seu e-mail..." size="50" required="required" />
+				</p>
+				
+				<p>
+					<label for="senha">Senha:</label>
+					<input type="password" name="senha" id="senha" placeholder="Digite sua senha..." size="40" required="required" />
+				</p>
+				
+				<h3>Gostos Pessoais</h3>
+				
+				<p>
+					<label for="doces">Doces:</label>
+					
+					<input type="checkbox" name="pacoca" id="pacoca" value="pacoca" />
+					<label for="pacoca">Paçoca</label>
+					<input type="checkbox" name="pudim" id="pudim" value="pudim" />
+					<label for="pudim">Pudim</label>
+					<input type="checkbox" name="chocolate" id="chocolate" value="chocolate" />
+					<label for="chocolate">Chocolate</label>
+				</p>
+				
+				<p>
+					<label for="esportes">Esportes:</label>
+					
+					<select id="esportes" multiple>
+						<option value="futebol">Futebol</option>
+						<option value="tenis">Tênis</option>
+						<option value="peteca">Peteca</option>
+						<option value="canoagem">Canoagem</option>
+					</select>
+				</p>
+				
+				<p>
+					<label for="heroi">Herói:</label>
+					
+					<select id="heroi">
+						<option value="mulherMaravilha">Mulher Maravilha</option>
+						<option value="superHomem">Super-Homem</option>
+						<option value="homemFerro">Homem de Ferro</option>
+						<option value="arqueiro">Arqueiro</option>
+					</select>
+				</p>
+				
+				<p>
+					<label for="cor">Cor:</label>
+					<input type="color" name="cor" id="cor" />
+				</p>
+				
+				<p>
+					<label for="odio">Nível de ódio:</label>
+					<input type="range" name="odio" id="odio" />
+				</p>
+				
+				<p>
+					<label for="hora">Hora favorita:</label>
+					<input type="time" name="hora" id="hora" />
+				</p>
+				
+				<p>
+					<label for="anoNovo">Ano Novo:</label>
+					<input type="datetime-local" name="anoNovo" id="anoNovo" />
+				</p>
+				
+				<p>
+					<label for="estacao">Outono:</label>
+					<input type="week" name="estacao" id="estacao" />
+				</p>
+				
+				<p>
+					<label for="pascoa">Páscoa:</label>
+					<input type="month" name="pascoa" id="pascoa" />
+				</p>
+				
+				<h3>Deixe sua Mensagem!</h3>
+				
+				<p>
+					<textarea name="comentario" id="comentario" required="required" rows="5" cols="60" placeholder="Digite sua mensagem..."></textarea>
+				</p>
+				
+				<p>
+					<input type="reset" value="Resetar" style="border-color: red; color: red; padding: 10px 20px; border-radius: 4px" />
+					<input type="submit" value="Enviar" style="border-color: green; color: green; padding: 10px 25px; border-radius: 4px" />
+				</p>
+			</form>
+		</main>
+		
+		<footer style="padding: 5px 20px; background-color: lightgreen; border-radius: 10px">
+			<h4>Feito por Amanda Moreira</h4>
+		</footer>
+	</body>
+</html>
