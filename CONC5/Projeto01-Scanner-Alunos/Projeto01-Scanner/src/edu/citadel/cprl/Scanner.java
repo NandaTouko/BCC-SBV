@@ -477,11 +477,14 @@ public class Scanner {
                     
         do {
             source.advance();
+            System.out.println("AAAAAAAAAAAAAAAAAAAAA");
             System.out.println((char) source.getChar());
             String c = scanCharLiteral();
             s.concat( c );
             System.out.println(s);
-        } while((char) source.getChar() == '\"');
+        } while((char) source.getChar() != '\"');
+        
+        System.out.println(s);
         
         return scanBuffer.toString();
         
