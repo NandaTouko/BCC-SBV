@@ -229,6 +229,8 @@ public class Scanner {
                         if ( (char) source.getChar() == '=' ) {
                             symbol = Symbol.notEqual;
                             source.advance();
+                        }else{
+                            throw error( "Invalid character '!'" );
                         }
                         
                         break;
@@ -334,7 +336,7 @@ public class Scanner {
                         source.advance();
                         
                         // lança o erro
-                        throw error( errorMsg );
+                        throw error( errorMsg );                      
                     
                 }
                 
@@ -480,7 +482,7 @@ public class Scanner {
         checkGraphicChar( source.getChar() );
         c = (char) source.getChar();
         
-        while(c != '\"'){
+        while(c != '\"' && c != '\n'){
             // é de escape?
             switch (c) {
                 case '\\':

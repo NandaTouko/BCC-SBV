@@ -26,7 +26,7 @@ public class TestScanner {
         
         //executar( "../examples/ScannerTests/Correct/Correct_01.cprl" );
         //executar( "../examples/ScannerTests/Correct/Correct_02.cprl" );
-        executar( "../examples/ScannerTests/Incorrect/Incorrect_01.cprl" );
+        //executar( "../examples/ScannerTests/Incorrect/Incorrect_01.cprl" );
         //executar( "../examples/ScannerTests/Incorrect/Incorrect_02.cprl" );
         
     }
