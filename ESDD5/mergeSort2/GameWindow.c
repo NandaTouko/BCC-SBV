@@ -91,7 +91,7 @@ void initGameWindow(GameWindow *gameWindow)
         while (!WindowShouldClose())
         {
             inputAndUpdateGameWorld(gameWindow->gw);
-            // drawGameWorld(gameWindow->gw);
+            drawGameWorld(gameWindow->gw);
         }
         unloadResourcesResourceManager();
         destroyGameWindow(gameWindow);
