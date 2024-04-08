@@ -66,10 +66,10 @@ typedef struct GameWorld {
 GameWorld gw;
 
 char labirinto[LINHAS][COLUNAS] = {
-    {'B', 0, 0, 'D'},
-    {0, 'D', 'B', 0},
-    {0, 'C', 'D', 0},
-    {'D', 0, 0, 'C'},
+    {'B', '-', '-', 'D'},
+    {'-', 'D', 'B', '-'},
+    {'-', 'C', 'D', '-'},
+    {'D', '-', '-', 'C'},
 };
 
 char opcoesLetras[LINHAS] = {'A', 'B', 'C', 'D'};
@@ -109,7 +109,6 @@ void loadResources( void );
  * @brief Unload the once loaded game resources.
  */
 void unloadResources( void );
-bool selecionarLetra(int linha, int coluna, char letter);
 
 int main( void ) {
 
@@ -164,6 +163,9 @@ void inputAndUpdate( GameWorld *gw ) {
 
 }
 
+bool selecionarLetra(int linha, int coluna, int letra);
+bool backtrack(int linha, int coluna);
+
 void draw( const GameWorld *gw ) {
 
     BeginDrawing();
@@ -173,11 +175,11 @@ void draw( const GameWorld *gw ) {
 
     for(int i = 0; i < LINHAS; i++){
         for(int j = 0; j < COLUNAS; j++){
-            if(labirinto[i][j] != 0) {
-                DrawText(TextFormat("%s", &labirinto[i][j]), (largQuadrado * j)/2, (largQuadrado * i)/2, 20, BLACK);
+            if(labirinto[i][j] != '-') {
+                DrawText(TextFormat("%c", labirinto[i][j]), (j * largQuadrado) + 20, (i * largQuadrado) + 20, 40, BLACK);
             }
 
-            DrawRectangleLines(largQuadrado * j, largQuadrado * i, largQuadrado, largQuadrado, PURPLE);
+            DrawRectangleLines(j * largQuadrado, i * largQuadrado, largQuadrado, largQuadrado, PURPLE);
         }
     }
 
@@ -193,22 +195,15 @@ void createGameWorld( void ) {
         .dummy = 0
     };
 
-    for(int i = 0; i < LINHAS; i++){
-        for(int j = 0; j < COLUNAS; j++){
-
-            if(labirinto[i][j] == 0) {
-                for(int i = 0; i < LINHAS; i++){
-                    bool resultado = selecionarLetra(i, j, opcoesLetras[i]);
-                    printf("%d\n", resultado);
-
-                    if(resultado){
-                        printf("LETRA: %c\n", opcoesLetras[i]);
-                        labirinto[i][j] = opcoesLetras[i];                        
-                        break;
-                    }
-                }
+    if (backtrack(0, 0)) {
+        for(int i = 0; i < LINHAS; i++){
+            for(int j = 0; j < COLUNAS; j++){
+                printf("%c\t", labirinto[i][j]);
             }
+            printf("\n");
         }
+    } else {
+        printf("Não foi possível encontrar uma solução!\n");
     }
 }
 
@@ -224,17 +219,37 @@ void unloadResources( void ) {
     printf( "unloading resources...\n" );
 }
 
-bool selecionarLetra(int linha, int coluna, char letter) {
-    for(int j = 0; j < coluna; j++){
-        if(labirinto[linha][j] == letter){
-            printf("COLUNA: %c - %c\n", labirinto[linha][j], letter);
-            return false;
+bool backtrack(int linha, int coluna) {
+    if (linha == LINHAS) {
+        return true; // Todas as linhas foram preenchidas
+    }
+    
+    if (coluna == COLUNAS) {
+        return backtrack(linha + 1, 0); // Preencher próxima linha
+    }
+
+    if (labirinto[linha][coluna] != '-') {
+        return backtrack(linha, coluna + 1); // Já preenchido, passar para próxima coluna
+    }
+
+    for (int i = 0; i < LINHAS; i++) {
+        if (selecionarLetra(linha, coluna, opcoesLetras[i])) {
+            labirinto[linha][coluna] = opcoesLetras[i];
+
+            if (backtrack(linha, coluna + 1)) {
+                return true; // Encontrou solução
+            }
+
+            labirinto[linha][coluna] = '-'; // Não encontrou solução, desfazer escolha
         }
     }
 
-    for(int i = 0; i < linha; i++) {
-        if(labirinto[i][coluna] == letter){
-            printf("LINHA: %c - %c\n", labirinto[i][coluna], letter);
+    return false; // Nenhuma letra serve nesta posição
+}
+
+bool selecionarLetra(int linha, int coluna, int letra) {
+    for(int i = 0; i < LINHAS; i++){
+        if((labirinto[i][coluna] == letra || labirinto[linha][i] == letra) && (i != linha || i != coluna)){
             return false;
         }
     }
