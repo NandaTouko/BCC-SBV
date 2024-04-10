@@ -1,0 +1,40 @@
+body {
+	font-family: Verdana;
+}
+
+main {
+	padding: 10px 20%;
+}
+
+#logo-title {
+	padding: 20px;
+}
+
+#logo-title img {
+	width: 4%;
+}
+
+#logo-title h1 {
+	display: inline-block;
+	margin-left: 10px;
+	margin: 0 10px;
+	color: #cd8d00;
+}
+
+#navbar {
+	background-color: #cd8d00;
+	padding: 10px 20px;
+}
+
+#navbar a {
+	width: 19%;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 18px;
+	color: #fff;
+}
+
+#navbar a:hover {
+	color: #ffc547;
+}
