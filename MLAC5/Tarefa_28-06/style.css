@@ -1,0 +1,98 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+nav {
+	padding: 10px 0;
+	height: 200vh;
+	background-color: aqua;
+}
+
+nav ul {
+	list-style-type: none;
+}
+
+nav a {
+	text-decoration: none;
+	display: block;
+	padding: 10px 18px;
+	color: darkcyan;
+	font-size: 18px;
+}
+
+nav a:hover,
+nav a.active {
+	background-color: #4be9e9;
+}
+
+nav a.active {
+	font-weight: 700;
+}
+
+header {
+	display: inline-block;
+	width: 20%;
+}
+
+main {
+	width: 77%;
+	display: inline-block;
+	padding: 12px;
+	position: absolute;
+}
+
+h1 {
+	font-size: 20px;
+	color: darkcyan;
+	margin-bottom: 10px;
+}
+
+section table,
+section table td,
+section table th {
+	padding: 5px;
+	text-align: center;
+}
+
+.section-table1 table,
+.section-table1 table td,
+.section-table1 table th {
+	border-bottom: 1px solid aqua;
+}
+
+.section-table1 tbody th {
+	border-bottom: none;
+}
+
+section table tbody th {
+	color: darkcyan;
+}
+
+section table thead th {
+	color: darkcyan;
+	font-size: 14px;
+	padding: 12px 5px;
+}
+
+.section-table1 thead th {
+	border-top: 1px solid aqua;
+}
+
+section table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+.section-table2 table,
+.section-table2 td,
+.section-table2 th {
+	border: 2px dashed aqua;
+}
+
+.section-table2 tbody th {
+	background-color: #e7ffff;
+}
