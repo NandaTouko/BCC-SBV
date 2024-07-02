@@ -107,29 +107,20 @@ public class Parser {
      */
     public InitialDecl parseInitialDecl() throws IOException {
         
-        // código do parser esperado para o Projeto 03
-        
-        /*if ( scanner.getSymbol() == Symbol.constRW ) {
-            parseConstDecl();
-        } else if ( scanner.getSymbol() == Symbol.typeRW ) {
-            parseArrayTypeDecl();
-        } else if ( scanner.getSymbol() == Symbol.varRW ) {
-            parseVarDecl();
-        } else {
-            throw internalError( "Invalid initial decl." );
-        }*/
-        
         // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        // sua implementação aqui
+        
+        switch(scanner.getSymbol()) {
+            case constRW:
+                return parseConstDecl();
+            case typeRW:
+                return parseArrayTypeDecl();
+            case varRW:
+                return parseVarDecl();
+            default:
+                throw internalError( "Invalid initial decl." );
+        }
 
         // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        return null;
         
     }
 
@@ -140,43 +131,38 @@ public class Parser {
      */
     public ConstDecl parseConstDecl() throws IOException {
         
-        // código do parser esperado para o Projeto 03
-        
-        /*try {
+        // <editor-fold defaultstate="collapsed" desc="Implementação">
+                    
+        try {
             
             match( Symbol.constRW );
             
-            if ( scanner.getSymbol() == Symbol.identifier ) {
-                idTable.add( scanner.getToken(), IdType.constantId );
-                match( Symbol.identifier );
-            }
+            Token identifier = scanner.getToken();
+            match( Symbol.identifier );
             
             match( Symbol.assign );
             
-            if ( scanner.getSymbol().isLiteral() ) {
-                matchCurrentSymbol();
-            } else {
-                throw error( "Invalid literal expression." );
-            }
+            Token literal = parseLiteral();
+            
+            Type typeName = Type.UNKNOWN;            
+            if ( literal != null ) {
+                typeName = Type.getTypeOf(literal.getSymbol());  
+            }      
             
             match( Symbol.semicolon );
+
+            ConstDecl constDecl = new ConstDecl( identifier, typeName, literal);
+            idTable.add(constDecl);
+
+            return constDecl;
             
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "constDecl" ) );
-        }*/
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        // sua implementação aqui
+            return null;
+        }
 
         // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        return null;
         
     }
 
