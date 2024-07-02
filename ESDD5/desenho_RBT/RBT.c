@@ -185,15 +185,34 @@ void drawingPath(RBTNode *no, RBTNode *noAnterior)
     {
         if (noAnterior != NULL)
         {
-            DrawLine(noX, noY, margem + noAnterior->rank * 50, margem + noAnterior->level * 50, no->color == RBT_COLOR_RED ? RED : BLACK);
+            int noAnteriorX = margem + noAnterior->rank * 50;
+            int noAnteriorY = margem + noAnterior->level * 50;
+
+            if (no->color == RBT_COLOR_RED)
+            {
+                noY = noAnteriorY; // Ajusta a altura do nó vermelho para ser a mesma do pai
+                no->level = noAnterior->level;
+
+                if (no->left != NULL)
+                {
+                    no->left->level = no->level + 1; // Aumenta o nível do filho esquerdo
+                }
+
+                if (no->right != NULL)
+                {
+                    no->right->level = no->level + 1; // Aumenta o nível do filho direito
+                }
+            }
+
+            DrawLine(noX, noY, noAnteriorX, noAnteriorY, no->color == RBT_COLOR_RED ? RED : BLACK);
         }
 
         drawingPath(no->left, no);
         drawingPath(no->right, no);
 
         DrawCircle(noX, noY, 20, WHITE);
-        DrawCircleLines(noX, noY, 20, BLACK);
-        DrawText(TextFormat("%d", no->key), noX - 6, noY - 6, 12, BLACK);
+        DrawCircleLines(noX, noY, 20, no->color == RBT_COLOR_RED && noAnterior != NULL ? RED : BLACK);
+        DrawText(TextFormat("%d", no->key), noX - 6, noY - 6, 12, no->color == RBT_COLOR_RED && noAnterior != NULL ? RED : BLACK);
     }
 }
 
