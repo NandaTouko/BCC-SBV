@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1678310312 source:c:\users\bv3024679\documents\projetodeordenacao\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"ordenacao.h"
+
+1678310533 c:\users\bv3024679\documents\projetodeordenacao\ordenacao.h
+
+1678310290 source:c:\users\bv3024679\documents\projetodeordenacao\ordenacao.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"ordenacao.h"
+
+1680020965 source:c:\users\bv3024679\documents\bcc-sbv\panc3\projetodeordenacao\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"ordenacao.h"
+
+1680020965 c:\users\bv3024679\documents\bcc-sbv\panc3\projetodeordenacao\ordenacao.h
+
+1680020965 source:c:\users\bv3024679\documents\bcc-sbv\panc3\projetodeordenacao\ordenacao.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"ordenacao.h"
+
