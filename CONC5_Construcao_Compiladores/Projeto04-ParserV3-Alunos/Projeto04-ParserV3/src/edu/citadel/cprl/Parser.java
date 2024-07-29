@@ -107,20 +107,15 @@ public class Parser {
      */
     public InitialDecl parseInitialDecl() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-        
-        switch(scanner.getSymbol()) {
-            case constRW:
-                return parseConstDecl();
-            case typeRW:
-                return parseArrayTypeDecl();
-            case varRW:
-                return parseVarDecl();
-            default:
-                throw internalError( "Invalid initial decl." );
+        if ( scanner.getSymbol() == Symbol.constRW ) {
+            return parseConstDecl();
+        } else if ( scanner.getSymbol() == Symbol.typeRW ) {
+            return parseArrayTypeDecl();
+        } else if ( scanner.getSymbol() == Symbol.varRW ) {
+            return parseVarDecl();
+        } else {
+            throw internalError( "Invalid initial decl." );
         }
-
-        // </editor-fold>
         
     }
 
@@ -131,29 +126,29 @@ public class Parser {
      */
     public ConstDecl parseConstDecl() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
             
             match( Symbol.constRW );
             
-            Token identifier = scanner.getToken();
+            Token constId = scanner.getToken();
             match( Symbol.identifier );
             
             match( Symbol.assign );
-            
             Token literal = parseLiteral();
-            
-            Type typeName = Type.UNKNOWN;            
-            if ( literal != null ) {
-                typeName = Type.getTypeOf(literal.getSymbol());  
-            }      
-            
             match( Symbol.semicolon );
-
-            ConstDecl constDecl = new ConstDecl(identifier, typeName, literal);
-            idTable.add(constDecl);
-
+            
+            Type constType = Type.UNKNOWN;
+            if ( literal != null ) {
+                constType = Type.getTypeOf( literal.getSymbol() );
+            }
+            
+            ConstDecl constDecl = new ConstDecl( 
+                    constId, 
+                    constType, 
+                    literal );
+            
+            idTable.add( constDecl );
+            
             return constDecl;
             
         } catch ( ParserException e ) {
@@ -161,8 +156,6 @@ public class Parser {
             recover( FOLLOW_SETS.get( "constDecl" ) );
             return null;
         }
-
-        // </editor-fold>
         
     }
 
@@ -269,58 +262,34 @@ public class Parser {
          * à NullPointerException. Por exemplo:
          * new ConstValue( new Token( Symbol.intLiteral, scanner.getPosition(), "0" ) );
          */
-
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
+        
         try {
-            
-            match( Symbol.typeRW );
-            
-            Token identifier = scanner.getToken();
-            match( Symbol.identifier );
-            
-            match( Symbol.equals );
-            match( Symbol.arrayRW );
-            
-            match( Symbol.leftBracket );
-            
-            ConstValue intConstValue = new ConstValue( new Token( Symbol.intLiteral, scanner.getPosition(), "0" ) );
-            
-            if ( scanner.getSymbol() == Symbol.intLiteral ) {
-                ConstValue constValue = parseConstValue();
-                
-                if( constValue != null ) {
-                    intConstValue = constValue;
-                }
-            } else {
-                throw error( "Invalid constant." );
+            match(Symbol.typeRW);
+            List<Token> identifiers = parseIdentifiers();
+            Token arrayId = identifiers.get(0);
+            Position errorPos = null;
+            match(Symbol.equals);
+            match(Symbol.arrayRW);
+            match(Symbol.leftBracket);
+            ConstValue cv = parseConstValue();
+            if (cv == null) {
+                cv = new ConstValue(new Token(Symbol.intLiteral, scanner.getPosition(), "0"));
             }
-            
-            match( Symbol.rightBracket );
-            match( Symbol.ofRW );
-            
-            Type typeName = parseTypeName();
-            
-            match( Symbol.semicolon );
-
-            ArrayTypeDecl arrayTypeDecl = new ArrayTypeDecl(identifier, typeName, intConstValue);
-            idTable.add(arrayTypeDecl);
-
-            return arrayTypeDecl;
-            
-        } catch ( ParserException e ) {
-            ErrorHandler.getInstance().reportError( e );
-            recover( FOLLOW_SETS.get( "arrayTypeDecl" ) );
+            match(Symbol.rightBracket);
+            match(Symbol.ofRW);
+            Type t = parseTypeName();
+            ArrayTypeDecl array = new ArrayTypeDecl(arrayId, t, cv);
+            idTable.add(array);
+            match(Symbol.semicolon);
+            if (errorPos != null) {
+                throw error(errorPos, "Invalid constant.");
+            }
+            return array;
+        } catch (ParserException e) {
+            ErrorHandler.getInstance().reportError(e);
+            recover(FOLLOW_SETS.get("arrayTypeDecl"));
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        // return null;
         
     }
 
@@ -380,25 +349,15 @@ public class Parser {
      * 
      * subprogramDecls = ( subprogramDecl )* .
      */
-    public List<SubprogramDecl> parseSubprogramDecls() throws IOException {
-                
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        List<SubprogramDecl> subprogramDecl = new ArrayList<>();
+    public List<SubprogramDecl> parseSubprogramDecls() throws IOException {        
+         
+        List<SubprogramDecl> subprogramDecls = new ArrayList<>();
        
         while ( scanner.getSymbol().isSubprogramDeclStarter() ) {
-            subprogramDecl.add(parseSubprogramDecl());
+            subprogramDecls.add(parseSubprogramDecl());
         }
         
-        return subprogramDecl;
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
+        return subprogramDecls;
         
     }
 
@@ -408,26 +367,15 @@ public class Parser {
      * subprogramDecl = procedureDecl | functionDecl .
      */
     public SubprogramDecl parseSubprogramDecl() throws IOException {
-                
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-            
-        switch (scanner.getSymbol()) {
-            case procedureRW:
-                return parseProcedureDecl();
-            case functionRW:
-                return parseFunctionDecl();
-            default:
-                throw internalError( "Invalid subprogram decl." );
+        
+        if ( scanner.getSymbol() == Symbol.procedureRW ) {
+            return parseProcedureDecl();
+        } else if ( scanner.getSymbol() == Symbol.functionRW ) {
+            return parseFunctionDecl();
+        } else {
+            throw internalError( "Invalid subprogram decl." );
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
     }
 
     /**
@@ -484,58 +432,46 @@ public class Parser {
      */
     public FunctionDecl parseFunctionDecl() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
             match( Symbol.functionRW );
-            match( Symbol.identifier );
-            
             Token funcId = scanner.getToken();
-            FunctionDecl funcDecl = new FunctionDecl( funcId );
-            idTable.add( funcDecl );
-            idTable.openScope();
-            
-            if ( scanner.getSymbol() == Symbol.leftParen ) {
-                funcDecl.setFormalParams( parseFormalParameters() );
-            }
-            
-            match( Symbol.returnRW );
-            
-            parseTypeName();
-            
-            match( Symbol.isRW );
-            funcDecl.setInitialDecls( parseInitialDecls() );
-            
-            subprogramContext.beginSubprogramDecl( funcDecl );
-            funcDecl.setStatementPart( parseStatementPart() );
-            subprogramContext.endSubprogramDecl();
-            idTable.closeScope();
-
             match( Symbol.identifier );
-            Token funcId2 = scanner.getToken();
-
-            if ( !funcId.getText().equals( funcId2.getText() ) ) {
-                throw error( funcId2.getPosition(), "Function name mismatch." );
+            FunctionDecl functionDecl = new FunctionDecl(funcId);
+            idTable.add(functionDecl);
+            idTable.openScope();
+           
+            if ( scanner.getSymbol() == Symbol.leftParen ) {
+                functionDecl.setFormalParams( parseFormalParameters() );
             }
-
+           
+            match( Symbol.returnRW );
+           
+            functionDecl.setType( parseTypeName() );
+           
+            match( Symbol.isRW );
+            functionDecl.setInitialDecls(parseInitialDecls() );
+           
+            subprogramContext.beginSubprogramDecl(functionDecl);
+            functionDecl.setStatementPart(parseStatementPart());
+            subprogramContext.endSubprogramDecl();
+           
+            idTable.closeScope();
+            Token procId2 = scanner.getToken();
+            match( Symbol.identifier );
+            if ( !funcId.getText().equals( procId2.getText() ) ) {
+                throw error( procId2.getPosition(), "Function name mismatch." );
+            }
             match( Symbol.semicolon );
-            
-            return funcDecl;
+           
+            return functionDecl;
+           
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "functionDecl" ) );
             return null;
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
     }
 
     /**
@@ -545,37 +481,28 @@ public class Parser {
      */
     public List<ParameterDecl> parseFormalParameters() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
+           
+            List<ParameterDecl> parameterDecls = new ArrayList<>();
+
             match( Symbol.leftParen );
-            
-            List<ParameterDecl> parameterDecl = new ArrayList<>();
-            parameterDecl.add(parseParameterDecl());
-            
+
+            parameterDecls.add(parseParameterDecl());
+
             while ( scanner.getSymbol() == Symbol.comma ) {
                 matchCurrentSymbol();
-                parameterDecl.add(parseParameterDecl());
+                parameterDecls.add(parseParameterDecl());
             }
-            
+
             match( Symbol.rightParen );
-            
-            return parameterDecl;
+
+            return parameterDecls;
             
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "formalParameters" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -586,41 +513,29 @@ public class Parser {
      */
     public ParameterDecl parseParameterDecl() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            boolean isVarParameter = false;
-            
-            if ( scanner.getSymbol() == Symbol.varRW ) {
+            Boolean isVar = false;
+            if (scanner.getSymbol() == Symbol.varRW) {
                 matchCurrentSymbol();
-                isVarParameter = true;
+                isVar = true;
             }
             
             Token paramId = scanner.getToken();
-            match( Symbol.identifier );
             
-            match( Symbol.colon );
+            match(Symbol.identifier);
+            match(Symbol.colon);
             
-            Type typeName = parseTypeName();
+            Type type = parseTypeName();
+            ParameterDecl pd = new ParameterDecl(paramId, type, isVar);
+            idTable.add(pd);
             
-            ParameterDecl parameterDecl = new ParameterDecl(paramId, typeName, isVarParameter);
-            idTable.add( parameterDecl );
-            
-            return parameterDecl;
-        } catch ( ParserException e ) {
-            ErrorHandler.getInstance().reportError( e );
-            recover( FOLLOW_SETS.get( "parameterDecl" ) );
+            return pd;
+        } catch (ParserException e) {
+            ErrorHandler.getInstance().reportError(e);
+            recover(FOLLOW_SETS.get("parameterDecl"));
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
+       
     }
 
     /**
@@ -650,24 +565,14 @@ public class Parser {
      */
     public List<Statement> parseStatements() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         List<Statement> statements = new ArrayList<>();
-        
-        while ( scanner.getSymbol().isStmtStarter() ) {
-            statements.add(parseStatement());
+        while (scanner.getSymbol().isStmtStarter()) {
+            Statement s = parseStatement();
+            statements.add(s);
         }
         
         return statements;
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
     }
 
     /**
@@ -680,76 +585,55 @@ public class Parser {
         
         // assume que scanner.getSymbol() pode iniciar uma instrução
         assert scanner.getSymbol().isStmtStarter() : "Invalid statement.";
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
+               
         try {
-            Statement statement = null;
-            
-            switch (scanner.getSymbol()) {
-                case exitRW:
-                    statement =  parseExitStmt();
-                    break;
-                case identifier:
-                    Token tokenId = scanner.getToken();
-                    Declaration decl = idTable.get(tokenId);
-                    
-                    if ( decl == null ) {
-                        String errorMsg = "Identifier \"" + tokenId +
-                                "\" has not been declared.";
-                        throw error( tokenId.getPosition(), errorMsg );
-                    } else if ( decl instanceof VarDecl ) {
-                        statement = parseAssignmentStmt();
-                    } else if ( decl instanceof ProcedureDecl ) {
-                        statement = parseProcedureCallStmt();
-                    } else if ( decl instanceof ConstDecl ) {
-                        String errorMsg = "Identifier \"" + tokenId +
-                                "\" cannot start a statement.";
-                        throw error( tokenId.getPosition(), errorMsg );
-                    }
-                    
-                    break;
-                case loopRW:
-                    statement = parseLoopStmt();
-                    break;
-                case ifRW:
-                    statement = parseIfStmt();
-                    break;
-                case whileRW:
-                    statement = parseLoopStmt();
-                    break;
-                case readRW:
-                    statement = parseReadStmt();
-                    break;
-                case writeRW:
-                    statement = parseWriteStmt();
-                    break;
-                case writelnRW:
-                    statement = parseWritelnStmt();
-                    break;
-                case returnRW:
-                    statement = parseReturnStmt();
-                    break;
-                default:
-                    throw internalError( "Invalid statement." );
+            //System.out.println(scanner.getToken());
+            if ( scanner.getSymbol() == Symbol.exitRW ) {
+                return parseExitStmt();
+            } else if ( scanner.getSymbol() == Symbol.identifier ) {
+                Declaration idType = idTable.get( scanner.getToken() );
+                //System.out.println(scanner.getToken()+" - > " + idType.getClass() + " , " + idType.getType());
+                if ( idType == null ) {
+                    String errorMsg = "Identifier \"" + scanner.getToken() +
+                                      "\" has not been declared.";
+                    throw error( scanner.getToken().getPosition(), errorMsg );
+                
+                } else if ( idType instanceof NamedDecl ) {
+                    return parseAssignmentStmt();
+                } else if ( idType instanceof ProcedureDecl ) {
+                    return parseProcedureCallStmt();
+                } else if ( idType instanceof ConstDecl ) {
+                    String errorMsg = "Identifier \"" + scanner.getToken() +
+                                      "\" cannot start a statement.";
+                    throw error( scanner.getToken().getPosition(), errorMsg );
+                }
+            } else if ( scanner.getSymbol() == Symbol.ifRW ) {
+                return parseIfStmt();
+            } else if ( scanner.getSymbol() == Symbol.loopRW ) {
+                return parseLoopStmt();
+            } else if ( scanner.getSymbol() == Symbol.whileRW ) {
+                return parseLoopStmt();
+            } else if ( scanner.getSymbol() == Symbol.readRW ) {
+                return parseReadStmt();
+            } else if ( scanner.getSymbol() == Symbol.writeRW ) {
+                return parseWriteStmt();
+            } else if ( scanner.getSymbol() == Symbol.writelnRW ) {
+                return parseWritelnStmt();
+            } else if ( scanner.getSymbol() == Symbol.returnRW ) {
+                return parseReturnStmt();
+            } else {
+                throw internalError( "Invalid statement." );
             }
-        
-            return statement;
+       
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             scanner.advanceTo( Symbol.semicolon );
             recover( FOLLOW_SETS.get( "statement" ) );
             return null;
         }
-
-        // </editor-fold>
+       
+        return null;
         
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-
     }
 
     /**
@@ -759,42 +643,35 @@ public class Parser {
      */
     public AssignmentStmt parseAssignmentStmt() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
-           Variable variable = parseVariable();
-            
-            try {                
-                match( Symbol.assign );                
-            } catch ( ParserException e ) {                
+            Variable variable = parseVariable();
+            Position assignPos = scanner.getPosition();
+          
+           
+            try {
+                match( Symbol.assign );
+            } catch ( ParserException e ) {
+               
                 if ( scanner.getSymbol() == Symbol.equals ) {
                     ErrorHandler.getInstance().reportError( e );
                     matchCurrentSymbol();  // tratar "=" como ":="
+                                           // nesse contexto
                 } else {
                     throw e;
                 }
+               
             }
-            
-            Expression expression = parseExpression();
+           
+            Expression expr = parseExpression();
             match( Symbol.semicolon );
-            
-            AssignmentStmt assignmentStmt = new AssignmentStmt(variable, expression, scanner.getPosition());
-            
-            return assignmentStmt;
+           
+           
+            return new AssignmentStmt(variable, expr, assignPos);
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "assignmentStmt" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -807,54 +684,43 @@ public class Parser {
      */
     public IfStmt parseIfStmt() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
+           
             match( Symbol.ifRW );
-            Expression booleanExpr = parseExpression();
+            Expression exp = parseExpression();
+             
             match( Symbol.thenRW );
-            
             List<Statement> statements = parseStatements();
-            List<ElsifPart> elsifParts = new ArrayList<>();
-            List<Statement> statementsElse = new ArrayList<>();
-            
+           
+            List<ElsifPart> elsifs = new ArrayList<>();
+           
+            List<Statement> elses = new ArrayList<>();
+           
             while ( scanner.getSymbol() == Symbol.elsifRW ) {
                 match( Symbol.elsifRW );
-                Expression booleanExprElsif = parseExpression();
-                
+                Expression elsifExpr = parseExpression();
                 match( Symbol.thenRW );
-                List<Statement> statementsElsif = parseStatements();
-                
-                ElsifPart elsifPart = new ElsifPart(booleanExprElsif, statementsElsif);
-                elsifParts.add(elsifPart);
+                List<Statement> elsifStatements = parseStatements();
+                elsifs.add(new ElsifPart(elsifExpr , elsifStatements));
             }
-            
+           
             if ( scanner.getSymbol() == Symbol.elseRW ) {
                 match( Symbol.elseRW );
-                statementsElse = parseStatements();
+                elses = parseStatements();
+               
             }
-        
+       
             match( Symbol.endRW );
             match( Symbol.ifRW );
             match( Symbol.semicolon );
-            
-            IfStmt ifStmt = new IfStmt(booleanExpr, statements, elsifParts, statementsElse);
-            
-            return ifStmt;            
+            return new IfStmt(exp, statements, elsifs, elses);
+          
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "ifStmt" ) );
             return null;
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
     }
 
     /**
@@ -864,42 +730,41 @@ public class Parser {
      */
     public LoopStmt parseLoopStmt() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            LoopStmt loopStmt = new LoopStmt();
-            
+           
+            Expression expr = null;
+            List<Statement> statements = new ArrayList<>();
+           
+           
             if ( scanner.getSymbol() == Symbol.whileRW ) {
                 matchCurrentSymbol();
-                Expression booleanExpr = parseExpression();
-                loopStmt.setWhileExpr(booleanExpr);
+                expr = parseExpression();
             }
-
             match( Symbol.loopRW );
-            
-            loopContext.beginLoop(loopStmt);
-            List<Statement> statements = parseStatements();
-            loopStmt.setStatements(statements);
+           
+            LoopStmt ls = new LoopStmt();
+           
+            ls.setWhileExpr(expr);
+            loopContext.beginLoop(ls);
+           
+            statements = parseStatements();
+           
+            ls.setStatements(statements);
+           
             loopContext.endLoop();
-
+           
+         
             match( Symbol.endRW );
             match( Symbol.loopRW );
             match( Symbol.semicolon );
-            
-            return loopStmt;        
+           
+            return ls;
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "loopStmt" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -908,37 +773,28 @@ public class Parser {
      * 
      * exitStmt = "exit" ( "when" booleanExpr )? ";" .
      */
-    public ExitStmt parseExitStmt() throws IOException {
+    public ExitStmt parseExitStmt() throws IOException {        
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
-            match( Symbol.exitRW );
-            Expression booleanExpr = null;
-            
-            if ( scanner.getSymbol() == Symbol.whenRW ) {
+            Position p = scanner.getPosition();
+            match(Symbol.exitRW);
+            Expression whenExpr = null;
+            if (scanner.getSymbol() == Symbol.whenRW) {
                 matchCurrentSymbol();
-                booleanExpr = parseExpression();
+                whenExpr = parseExpression();
             }
-            
-            match( Symbol.semicolon );
-            ExitStmt exitStmt = new ExitStmt(booleanExpr, loopContext.getLoopStmt());
-            
-            return exitStmt;
-        } catch ( ParserException e ) {
-            ErrorHandler.getInstance().reportError( e );
-            recover( FOLLOW_SETS.get( "exitStmt" ) );
+            match(Symbol.semicolon);
+            LoopStmt ls = loopContext.getLoopStmt();
+            if (ls == null) {
+                String errorMsg = "Exit statement is not nested within a loop.";
+                throw error(p, errorMsg);
+            }
+            return new ExitStmt(whenExpr, ls);
+        } catch (ParserException e) {
+            ErrorHandler.getInstance().reportError(e);
+            recover(FOLLOW_SETS.get("exitStmt"));
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -949,29 +805,20 @@ public class Parser {
      */
     public ReadStmt parseReadStmt() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
+           
             match( Symbol.readRW );
-            Variable variable = parseVariableExpr();
+            Variable v = parseVariableExpr();
             match( Symbol.semicolon );
-            
-            ReadStmt readStmt = new ReadStmt(variable);
-            return readStmt;
+           
+            return new ReadStmt(v);
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "readStmt" ) );
             return null;
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -980,32 +827,24 @@ public class Parser {
      * 
      * writeStmt = "write" expressions ";" .
      */
-    public WriteStmt parseWriteStmt() throws IOException {
+    public WriteStmt parseWriteStmt() throws IOException{
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
+           
+            List<Expression> expressions;
+           
             match( Symbol.writeRW );
-            List<Expression> expressions = parseExpressions();
+            expressions = parseExpressions();
             match( Symbol.semicolon );
-            
-            WriteStmt writeStmt = new WriteStmt(expressions);
-            return writeStmt;
+           
+            return new WriteStmt(expressions);
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "writeStmt" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
+   
     }
 
     /**
@@ -1013,27 +852,17 @@ public class Parser {
      * 
      * expressions = expression ( "," expression )* .
      */
-    public List<Expression> parseExpressions() throws IOException {   
+    public List<Expression> parseExpressions() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        List<Expression> expressions = new ArrayList<>();
+        List<Expression> expressions = new ArrayList<>();  
         expressions.add(parseExpression());
-        
+       
         while ( scanner.getSymbol() == Symbol.comma ) {
             matchCurrentSymbol();
             expressions.add(parseExpression());
         }
-        
-        return expressions;
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
+        return expressions;
         
     }
 
@@ -1073,38 +902,27 @@ public class Parser {
      * procedureCallStmt = procId ( actualParameters )? ";" .
      */
     public ProcedureCallStmt parseProcedureCallStmt() throws IOException {
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
         try {
-            Token procId = scanner.getToken();
+           
+            Token t = scanner.getToken();
+            List<Expression> li = new ArrayList<>();
+           
             match( Symbol.identifier );
-            
-            List<Expression> actualParams = new ArrayList<>();
-            
+           
             if ( scanner.getSymbol().isExprStarter() ) {
-                actualParams = parseActualParameters();
+                li = parseActualParameters();
             }
-            
-            ProcedureDecl procDecl = (ProcedureDecl) subprogramContext.getSubprogramDecl();
+           
             match( Symbol.semicolon );
-            
-            ProcedureCallStmt procedureCall = new ProcedureCallStmt(procId, actualParams, procDecl);
-            
-            return procedureCall;            
+           
+            return new ProcedureCallStmt(t, li, (ProcedureDecl) idTable.get(t));
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "procedureCallStmt" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
@@ -1115,29 +933,22 @@ public class Parser {
      */
     public List<Expression> parseActualParameters() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
-            
+           
+            List<Expression> list;
+           
             match( Symbol.leftParen );
-            List<Expression> expressions = parseExpressions();
+            list = parseExpressions();
             match( Symbol.rightParen );
-            
-            return expressions;
+           
+            return list;
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "actualParameters" ) );
             return null;
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
     }
 
     /**
@@ -1146,37 +957,31 @@ public class Parser {
      * returnStmt = "return" ( expression )? ";" .
      */
     public ReturnStmt parseReturnStmt() throws IOException {
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
+                     
         try {
-            
+            Expression expr = null;
+            Position p = scanner.getPosition();
             match( Symbol.returnRW );
-            
-            Expression expression = null;
-            
+           
             if ( scanner.getSymbol().isExprStarter() ) {
-                expression = parseExpression();
+                expr = parseExpression();
             }
-            
+           
             match( Symbol.semicolon );
-            
-            ReturnStmt returnStmt = new ReturnStmt(subprogramContext.getSubprogramDecl(), expression, scanner.getPosition());
-            return returnStmt;
+           
+           
+            SubprogramDecl sc = subprogramContext.getSubprogramDecl();
+            if (sc == null) {
+                throw error(p, "Return statement is not nested within a subprogram.");
+            }
+            return new ReturnStmt(sc, expr, p);
+           
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "returnStmt" ) );
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
+           
     }
 
     /**
@@ -1274,31 +1079,15 @@ public class Parser {
      */
     public Expression parseRelation() throws IOException {
         
-        // código do parser esperado para o Projeto 03
-        
-        /*parseSimpleExpr();
-        
-        if ( scanner.getSymbol().isRelationalOperator() ) {
+        Expression expr = parseSimpleExpr();
+        if (scanner.getSymbol().isRelationalOperator()) {
+            Token operator = scanner.getToken();
             matchCurrentSymbol();
-            parseSimpleExpr();
-        }*/
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        parseSimpleExpr();
-        
-        if ( scanner.getSymbol().isRelationalOperator() ) {
-            matchCurrentSymbol();
-            parseSimpleExpr();
+            Expression expr2 = parseSimpleExpr();
+            expr = new RelationalExpr(expr, operator, expr2);
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        return null;
+       
+        return expr;
         
     }
 
@@ -1310,39 +1099,24 @@ public class Parser {
      */
     public Expression parseSimpleExpr() throws IOException {
         
-        // código do parser esperado para o Projeto 03
+        Token op1 = null;
         
-        /*if ( scanner.getSymbol().isAddingOperator() ) {
+        if (scanner.getSymbol().isAddingOperator()) {
+            op1 = scanner.getToken();
             matchCurrentSymbol();
         }
-        
-        parseTerm();
-        
-        while ( scanner.getSymbol().isAddingOperator() ) {
-            matchCurrentSymbol();
-            parseTerm();
-        }*/
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        if ( scanner.getSymbol().isAddingOperator() ) {
-            matchCurrentSymbol();
+        Expression term = parseTerm();
+        if (op1 != null) {
+            term = new NegationExpr(op1, term);
         }
-        
-        parseTerm();
-        
-        while ( scanner.getSymbol().isAddingOperator() ) {
+        while (scanner.getSymbol().isAddingOperator()) {
+            Token operator = scanner.getToken();
             matchCurrentSymbol();
-            parseTerm();
+            Expression term2 = parseTerm();
+            term = new AddingExpr(term, operator, term2);
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        return null;
+         return term;
         
     }
 
@@ -1354,31 +1128,15 @@ public class Parser {
      */
     public Expression parseTerm() throws IOException {
         
-        // código do parser esperado para o Projeto 03
-        
-        /*parseFactor();
-        
+        Expression factor = parseFactor();
         while ( scanner.getSymbol().isMultiplyingOperator() ) {
+            Token operator = scanner.getToken();
             matchCurrentSymbol();
-            parseFactor();
-        }*/
-        
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        parseFactor();
-        
-        while ( scanner.getSymbol().isMultiplyingOperator() ) {
-            matchCurrentSymbol();
-            parseFactor();
+            Expression factor2 = parseFactor();
+            factor = new MultiplyingExpr(factor, operator, factor2);
         }
-
-        // </editor-fold>
         
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        return null;
+        return factor;
         
     }
 
@@ -1454,40 +1212,32 @@ public class Parser {
      * constValue = literal | constId .
      */
     public ConstValue parseConstValue() throws IOException {
-                
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
+        
         try {
-            
-            if ( scanner.getSymbol().isLiteral() ) {
-                Token literal = parseLiteral();
-                
-                ConstValue constValue = new ConstValue(literal);
-                return constValue;
-            } else if ( scanner.getSymbol() == Symbol.identifier ) {
-                ConstDecl constDecl = parseConstDecl();
-                Token literal = constDecl.getLiteral();
-                
-                ConstValue constValue = new ConstValue(literal);
-                return constValue;
+            Token t;
+            if (scanner.getSymbol().isLiteral()) {
+                t = parseLiteral();
+                ConstValue cv = new ConstValue(t);
+                return cv;
+            } else if (scanner.getSymbol() == Symbol.identifier) {
+                t = scanner.getToken();
+               
+                matchCurrentSymbol();
+               
+                ConstDecl d = (ConstDecl) idTable.get(t);
+               
+                ConstValue cv = new ConstValue(t, d);
+               
+                return cv;
             } else {
-                throw error( "Invalid constant." );
+                throw error("Invalid constant.");
             }
-            
-        } catch ( ParserException e ) {
-            ErrorHandler.getInstance().reportError( e );
-            recover( FOLLOW_SETS.get( "constValue" ) );
+        } catch (ParserException e) {
+            ErrorHandler.getInstance().reportError(e);
+            recover(FOLLOW_SETS.get("constValue"));
             return null;
         }
-
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
-        
+     
     }
 
     /**
@@ -1515,35 +1265,22 @@ public class Parser {
      */
     public FunctionCall parseFunctionCall() throws IOException {
         
-        // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
         try {
             Token funcId = scanner.getToken();
+            List<Expression> list = new ArrayList<>();
             match( Symbol.identifier );
-            
-            List<Expression> actualParams = new ArrayList<>();
-            
+           
             if ( scanner.getSymbol().isExprStarter() ) {
-                actualParams = parseActualParameters();
+                list = parseActualParameters();
             }
-            
-            FunctionDecl funcDecl = (FunctionDecl) subprogramContext.getSubprogramDecl();
-            FunctionCall functionCall = new FunctionCall(funcId, actualParams, funcDecl);
-            
-            return functionCall;
+           
+            return new FunctionCall(funcId, list, (FunctionDecl) idTable.get(funcId));
         } catch ( ParserException e ) {
             ErrorHandler.getInstance().reportError( e );
             recover( FOLLOW_SETS.get( "functionCall" ) );
             return null;
         }
 
-        // </editor-fold>
-        
-        /* a linha abaixo está presente apenas para evitar erros
-         * ela deve ser modificada para que o seja feito o que é esperado
-         * seja inserindo-a em outra posição etc.
-         */
-        //return null;
         
     }
 
