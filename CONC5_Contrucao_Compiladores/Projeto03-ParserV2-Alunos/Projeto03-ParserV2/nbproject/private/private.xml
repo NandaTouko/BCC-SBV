@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/test/cprl/TestParser.java</file>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/edu/citadel/cprl/FirstFollowSetsV0.java</file>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/edu/citadel/cprl/Symbol.java</file>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/edu/citadel/cprl/FirstFollowSets.java</file>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/test/cprl/Corretor.java</file>
-            <file>file:/C:/Users/bv3024679/Documents/BCC-SBV/CONC5/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/test/cprl/TestUtils.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Contrucao_Compiladores/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/edu/citadel/cprl/Parser.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Contrucao_Compiladores/Projeto03-ParserV2-Alunos/Projeto03-ParserV2/src/test/cprl/Corretor.java</file>
         </group>
     </open-files>
 </project-private>
