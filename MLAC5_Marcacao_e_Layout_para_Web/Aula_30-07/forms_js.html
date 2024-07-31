@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Forms com Js</title>
+	</head>
+	
+	<body>
+		<form>
+			<p>
+				<label for="nome">Nome:</label>
+				<input type="text" name="nome" id="nome" size="30" onchange="capslock(this)" required />
+			</p>
+			
+			<p>
+				<label for="endereco">Endereço:</label>
+				<input type="text" name="endereco" id="endereco" size="50" required />
+			</p>
+			
+			<p>
+				<label for="numero">Número:</label>
+				<input type="number" name="numero" id="numero" size="20" min="300" max="500" required />
+			</p>
+			
+			<p>
+				<label for="cep">CEP:</label>
+				<input type="number" name="cep" id="cep" size="20" required />
+			</p>
+			
+			<p>
+				<label for="bairro">Bairro:</label>
+				<input type="text" name="bairro" id="bairro" size="40" required />
+			</p>
+			
+			<p>
+				<label for="estado">Estado:</label>
+				<input type="text" name="estado" id="estado" size="40" required />
+			</p>
+			
+			<p>
+				<label for="cidade">Cidade:</label>
+				<input type="text" name="cidade" id="cidade" size="40" required />
+			</p>
+			
+			<p>
+				<input type="button" name="enviar" value="Enviar" onclick="validarForm(event)" />
+			</p>
+		</form>
+		
+		<p id="respostas"></p>
+		
+		<script>
+			function capslock(elem) {
+				elem.value = elem.value.toUpperCase();
+			}
+			
+			function validarForm() {
+				let inputs = document.getElementsByTagName("input");
+				let mensagemErro = 'Os campos abaixo estão inválidos:\n';
+				let respostas = 'Dados digitados: <br/>';
+				let p = document.getElementById("respostas");
+				
+				for(let i = 0; i < (inputs.length - 1); i++){
+					if(inputs[i].checkValidity() == false){
+						mensagemErro += `- Erro no campo "${inputs[i].name}": ${inputs[i].validationMessage}\n`;
+					}
+					
+					respostas += `- ${inputs[i].name.toUpperCase()}: ${inputs[i].value} <br/>`;
+				}
+				
+				if(mensagemErro != "Os campos abaixo estão inválidos:\n"){
+					alert(mensagemErro);
+				}
+				
+				p.innerHTML = respostas;
+			}
+		</script>
+	</body>
+</html>
