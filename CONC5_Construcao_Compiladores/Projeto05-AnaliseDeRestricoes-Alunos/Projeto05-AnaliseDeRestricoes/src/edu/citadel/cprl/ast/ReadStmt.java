@@ -33,7 +33,18 @@ public class ReadStmt extends Statement {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+            
+            variable.checkConstraints();
+            
+            if(variable.getType() != Type.Integer && variable.getType() != Type.Char) {
+                String errorMsg = "Input supported only for integers and characters.";
+                throw error( variable.getPosition(), errorMsg );
+            }
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

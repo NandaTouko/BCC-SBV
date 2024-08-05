@@ -42,7 +42,23 @@ public class ExitStmt extends Statement {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+            System.out.println("AAAAAAA");
+            
+            assert loopStmt == null : "Exit statement is not nested within a loop.";
+            
+            if(whenExpr != null){
+                whenExpr.checkConstraints();
+                
+                if ( whenExpr.getType() != Type.Boolean ) {
+                    String errorMsg = "An \"when\" expression should have type Boolean.";
+                    throw error( whenExpr.getPosition(), errorMsg );
+                }
+            }       
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

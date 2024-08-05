@@ -35,8 +35,24 @@ public class ArrayTypeDecl extends InitialDecl {
         // ser um número positivo.
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
-                    
-        // sua implementação aqui
+        
+        try {
+            
+            numElements.checkConstraints();
+
+            if ( numElements.getType() != Type.Integer) {
+                String errorMsg = "Index expression must have type Integer.";
+                throw error( numElements.getPosition(), errorMsg );
+            }
+            
+            if(numElements.getLiteralIntValue() <= 0) {
+                String errorMsg = "Invalid constant.";
+                throw error( numElements.getPosition(), errorMsg );
+            }
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

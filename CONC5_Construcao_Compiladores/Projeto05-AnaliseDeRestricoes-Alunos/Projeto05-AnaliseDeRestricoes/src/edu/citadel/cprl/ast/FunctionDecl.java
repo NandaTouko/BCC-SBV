@@ -98,7 +98,27 @@ public class FunctionDecl extends SubprogramDecl {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+            
+            super.checkConstraints();
+            
+            StatementPart stmtPart = super.getStatementPart();
+            List<Statement> statements = stmtPart.getStatements();
+            
+            assert !hasReturnStmt(statements) : "A function requires at least one return statement.";
+            
+            List<ParameterDecl> formalParams = super.getFormalParams();
+            
+            for ( ParameterDecl paramDecl : formalParams ) {
+                if(paramDecl.isVarParam()){
+                    String errorMsg = "A function cannot have var parameters.";
+                    throw error( paramDecl.getPosition(), errorMsg );
+                }
+            }
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

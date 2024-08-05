@@ -37,7 +37,27 @@ public class MultiplyingExpr extends BinaryExpr {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+            
+            Expression leftOperand = getLeftOperand();
+            Expression rightOperand = getRightOperand();
+
+            leftOperand.checkConstraints();
+            rightOperand.checkConstraints();
+            
+            if ( leftOperand.getType() != Type.Integer ) {
+                String errorMsg = "Left operand for expression should have type Integer.";
+                throw error( leftOperand.getPosition(), errorMsg );
+            }
+
+            if ( rightOperand.getType() != Type.Integer ) {
+                String errorMsg = "Right operand for expression should have type Integer.";
+                throw error( rightOperand.getPosition(), errorMsg );
+            }
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

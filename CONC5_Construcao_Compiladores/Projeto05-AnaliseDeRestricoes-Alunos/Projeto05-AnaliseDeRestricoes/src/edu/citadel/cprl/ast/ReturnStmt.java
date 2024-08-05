@@ -58,7 +58,16 @@ public class ReturnStmt extends Statement {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+            
+            if(returnExpr != null && subprogramDecl.getType() != returnExpr.getType()) {
+                String errorMsg = "The return of the function must be of the same type as it.";
+                throw error( returnExpr.getPosition(), errorMsg );
+            }
+            
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
         

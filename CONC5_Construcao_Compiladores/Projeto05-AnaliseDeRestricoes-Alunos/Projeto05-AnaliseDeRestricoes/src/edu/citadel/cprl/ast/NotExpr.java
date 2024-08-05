@@ -37,7 +37,19 @@ public class NotExpr extends UnaryExpr {
         
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
-        // sua implementação aqui
+        try {
+
+            Expression operand = getOperand();
+            operand.checkConstraints();
+
+            if ( operand.getType() != Type.Boolean ) {
+                String errorMsg = "Expression following \"not\" operator is not a Boolean expression.";
+                throw error( operand.getPosition(), errorMsg );
+            }
+
+        } catch ( ConstraintException e ) {
+            ErrorHandler.getInstance().reportError( e );
+        }
 
         // </editor-fold>
 
