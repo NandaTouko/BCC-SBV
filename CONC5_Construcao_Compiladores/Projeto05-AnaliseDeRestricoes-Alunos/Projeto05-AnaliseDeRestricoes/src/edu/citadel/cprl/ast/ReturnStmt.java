@@ -59,13 +59,13 @@ public class ReturnStmt extends Statement {
         // <editor-fold defaultstate="collapsed" desc="Implementação">
                     
         try {
+            
             if (returnExpr != null) {
                 returnExpr.checkConstraints();
                 
                 if (!(subprogramDecl instanceof FunctionDecl)) {
                     String errorMsg = "Return expression allowed only within functions.";
-                    Position returnPosition = returnExpr.getPosition();
-                    throw error(returnPosition, errorMsg);
+                    throw error(returnExpr.getPosition(), errorMsg);
                 }
                 
                 if (returnExpr.getType() != subprogramDecl.getType()) {
