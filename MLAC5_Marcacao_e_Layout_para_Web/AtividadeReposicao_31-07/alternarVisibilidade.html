@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Alternar Visibilidade</title>
+	</head>
+
+	<body>
+		<p>
+			<img src="eye.jpg" alt="Olho de jacaré" id="image"
+				style="border-radius: 10px;" />
+		</p>
+
+		<button style="padding: 8px" onclick="changeVisibility(this)">
+			Esconder imagem!
+		</button>
+
+		<script>
+			function changeVisibility(button) {
+				let image = document.getElementById("image");
+
+				if(button.innerText == "Esconder imagem!") {
+					image.style.visibility = "hidden";
+					button.innerText = "Voltar imagem!";
+				} else {
+					image.style.visibility = "visible";
+					button.innerText = "Esconder imagem!";
+				}
+			}
+		</script>
+	</body>
+</html>

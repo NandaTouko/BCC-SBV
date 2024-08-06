@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Trocar Estilos</title>
+
+		<style>
+			.w-25 {
+				width: 25%;
+			}
+
+			.w-50 {
+				width: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>
+			<img src="eye.jpg" alt="Olho de jacaré" id="image"
+				style="border-radius: 10px;" class="w-25" />
+		</p>
+
+		<button style="padding: 8px" onclick="changeSize(this)">
+			Aumentar width para 50%
+		</button>
+
+		<script>
+			function changeSize(button) {
+				let image = document.getElementById("image");
+				let currentClass = image.classList[0];
+				
+				if(currentClass == 'w-25') {
+					image.classList.remove('w-25');
+					image.classList.add('w-50');
+					button.innerText = "Diminuir width para 25%";
+				} else {
+					image.classList.remove('w-50');
+					image.classList.add('w-25');
+					button.innerText = "Aumentar width para 50%";
+				}
+			}
+		</script>
+	</body>
+</html>

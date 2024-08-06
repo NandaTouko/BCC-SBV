@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Validar Formulário</title>
+	</head>
+
+	<body>
+		<form>
+			<label for="email">E-mail: </label>
+			<input type="text" name="email" id="email" size="30" />
+			<input type="reset" value="Limpar" />
+			<input type="button" value="Validar!" onclick="validateEmail()" />
+		</form>
+
+		<p id="response"
+			style="padding: 8px; border-radius: 5px;"></p>
+
+		<script>
+			function isValidEmail(email) {
+				return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+			}
+
+			function validateEmail() {
+				let email = document.getElementById("email").value;
+				let response = document.getElementById("response");
+
+				if(isValidEmail(email)) {
+					response.innerText = "O e-mail digitado é válido!";
+					response.style.backgroundColor = "#90ee90";
+				} else {
+					response.innerText = "O e-mail digitado é inválido!";
+					response.style.backgroundColor = "#ff6961";
+				}
+			}
+		</script>
+	</body>
+</html>
