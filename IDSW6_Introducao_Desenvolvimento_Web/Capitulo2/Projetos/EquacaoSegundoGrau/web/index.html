@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Equação de Segundo Grau</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>Equação de Segundo Grau</h3>
+        <p>Lembre-se da estrutura dessa função: ax² + bx + c = 0</p>
+        
+        <form method="get" action="EqSegundoGrauServlet">
+            <p>
+                <label>1° Coeficiente:</label>
+                <input type="number" name="a" step="0.01" required />
+            </p>
+            
+            <p>
+                <label>2° Coeficiente:</label>
+                <input type="number" name="b" step="0.01" required />
+            </p>
+            
+            <p>
+                <label>3° Coeficiente:</label>
+                <input type="number" name="c" step="0.01" required />
+            </p>
+            
+            <p>
+                <input type="submit" value="Calcular" />
+            </p>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Formulário Produto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Dados do Produto</h2>
+        
+        <form method="post" action="FormProdServlet">
+            <p>
+                <label>Código de Barras:</label>
+                <input type="text" name="codBarras" size="30" />
+            </p>
+            
+            <p>
+                <label>Descrição:</label>
+                <input type="text" name="descricao" size="40" />
+            </p>
+            
+            <p>
+                <label>Unidade de Medida:</label>
+                <input type="radio" name="uniMedida" value="Kg" /> Kg
+                <input type="radio" name="uniMedida" value="Unidade" /> Unidade
+            </p>
+            
+            <p>
+                <label>Quantidade por Embalagem:</label>
+                <input type="number" name="quantEmbalagem" min="1" />
+            </p>
+            
+            <p>
+                <label>Fabricante:</label>
+                <input type="text" name="fabricante" size="30" />
+            </p>
+            
+             <p>
+                <input type="submit" value="Salvar" />
+            </p>
+        </form>
+    </body>
+</html>

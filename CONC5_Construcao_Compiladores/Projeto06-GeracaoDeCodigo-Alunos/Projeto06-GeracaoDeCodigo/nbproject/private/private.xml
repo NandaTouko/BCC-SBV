@@ -16,6 +16,19 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/NegationExpr.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/OutputStmt.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/Visão%20Geral%20das%20Classes%20do%20Projeto.txt</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/LogicalExpr.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/WritelnStmt.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/UnaryExpr.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/WriteStmt.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/Symbol.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/MultiplyingExpr.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/test/cprl/Corretor.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/edu/citadel/cprl/ast/NotExpr.java</file>
+            <file>file:/D:/nanda/Repositórios/Meus/BCC-SBV/CONC5_Construcao_Compiladores/Projeto06-GeracaoDeCodigo-Alunos/Projeto06-GeracaoDeCodigo/src/test/cprl/TestCompiler.java</file>
+        </group>
     </open-files>
 </project-private>
