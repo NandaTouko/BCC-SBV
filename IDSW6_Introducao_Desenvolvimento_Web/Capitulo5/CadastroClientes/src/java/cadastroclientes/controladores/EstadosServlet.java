@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet( name = "EstadosServlet", 
              urlPatterns = { "/processaEstados" } )
 public class EstadosServlet extends HttpServlet {
-
+    
     protected void processRequest( 
             HttpServletRequest request, 
             HttpServletResponse response )
@@ -36,12 +36,19 @@ public class EstadosServlet extends HttpServlet {
                 Estado e = new Estado();
                 e.setNome( nome );
                 e.setSigla( sigla );
+                                
+                if(nome.length() > 30 || nome.isEmpty() || sigla.length() > 2 || sigla.isEmpty()) {                   
+                    request.setAttribute( "estado", e );
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/estados/erro.jsp" );
+                } else {
+                    dao.salvar( e );
 
-                dao.salvar( e );
-
-                disp = request.getRequestDispatcher(
-                        "/formularios/estados/listagem.jsp" );
-
+                    disp = request.getRequestDispatcher(
+                            "/formularios/estados/listagem.jsp" );
+                }
+                
             } else if ( acao.equals( "alterar" ) ) {
 
                 int id = Integer.parseInt(request.getParameter( "id" ));
@@ -52,11 +59,18 @@ public class EstadosServlet extends HttpServlet {
                 e.setId( id );
                 e.setNome( nome );
                 e.setSigla( sigla );
+                
+                if(nome.length() > 30 || nome.isEmpty() || sigla.length() > 2 || sigla.isEmpty()) {
+                    request.setAttribute( "estado", e );
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/estados/erro.jsp" );
+                } else {
+                    dao.atualizar( e );
 
-                dao.atualizar( e );
-
-                disp = request.getRequestDispatcher(
-                        "/formularios/estados/listagem.jsp" );
+                    disp = request.getRequestDispatcher(
+                            "/formularios/estados/listagem.jsp" );
+                }               
 
             } else if ( acao.equals( "excluir" ) ) {
 
@@ -98,12 +112,12 @@ public class EstadosServlet extends HttpServlet {
             }
         }
 
-        if ( disp != null ) {
+        if ( disp != null ) {            
             disp.forward( request, response );
         }
         
     }
-
+    
     @Override
     protected void doGet( 
             HttpServletRequest request, 

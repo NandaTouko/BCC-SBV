@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
 <c:set var="prefixo" value="processaClientes?acao=preparar"/>
 <!DOCTYPE html>
@@ -30,6 +31,7 @@
           <th>Id</th>
           <th>Nome</th>
           <th>Sobrenome</th>
+          <th>Data Nascimento</th>
           <th>E-mail</th>
           <th>CPF</th>
           <th>Cidade</th>
@@ -49,6 +51,13 @@
             <td>${cliente.id}</td>
             <td>${cliente.nome}</td>
             <td>${cliente.sobrenome}</td>
+            
+            <fmt:formatDate 
+                pattern="dd/MM/yyyy"
+                value="${cliente.dataNascimento}"
+                var="data" scope="page"/>
+            
+            <td>${data}</td>
             <td>${cliente.email}</td>
             <td>${cliente.cpf}</td>
             <td>${cliente.cidade.nome}</td>
