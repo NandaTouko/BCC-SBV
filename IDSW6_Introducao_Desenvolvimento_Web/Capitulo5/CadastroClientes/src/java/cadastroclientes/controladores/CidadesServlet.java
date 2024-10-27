@@ -15,6 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet( name = "CidadesServlet", 
              urlPatterns = { "/processaCidades" } )
 public class CidadesServlet extends HttpServlet {
+    protected boolean temErrosInputs(Cidade c) {
+        boolean validaNome = c.getNome().length() > 30 || c.getNome().isEmpty();
+        
+        return validaNome;
+    }
 
     protected void processRequest( 
             HttpServletRequest request, 
@@ -41,11 +46,20 @@ public class CidadesServlet extends HttpServlet {
                 Cidade c = new Cidade();
                 c.setNome( nome );
                 c.setEstado( e );
+                
+                boolean temErros = temErrosInputs(c);
 
-                dao.salvar( c );
+                if(temErros) {
+                    request.setAttribute("cidade", c);
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/cidades/erro.jsp" );
+                } else {
+                    dao.salvar( c );
 
-                disp = request.getRequestDispatcher(
-                        "/formularios/cidades/listagem.jsp" );
+                    disp = request.getRequestDispatcher(
+                            "/formularios/cidades/listagem.jsp" );
+                }               
 
             } else if ( acao.equals( "alterar" ) ) {
 
@@ -61,11 +75,20 @@ public class CidadesServlet extends HttpServlet {
                 c.setId( id );
                 c.setNome( nome );
                 c.setEstado( e );
+                
+                boolean temErros = temErrosInputs(c);
+                
+                if(temErros) {
+                    request.setAttribute("cidade", c);
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/cidades/erro.jsp" );
+                } else {
+                    dao.atualizar( c );
 
-                dao.atualizar( c );
-
-                disp = request.getRequestDispatcher(
-                        "/formularios/cidades/listagem.jsp" );
+                    disp = request.getRequestDispatcher(
+                            "/formularios/cidades/listagem.jsp" );
+                }                
 
             } else if ( acao.equals( "excluir" ) ) {
 

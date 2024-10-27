@@ -18,6 +18,21 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet( name = "ClientesServlet", 
              urlPatterns = { "/processaClientes" } )
 public class ClientesServlet extends HttpServlet {
+    protected boolean temErrosInputs(Cliente c) {
+        boolean validaNome = c.getNome().length() > 45 || c.getNome().isEmpty();
+        boolean validaSobrenome = c.getSobrenome().length() > 45 || c.getSobrenome().isEmpty();
+        boolean validaDataNasc = c.getDataNascimento() == null;
+        boolean validaCPF = c.getCpf().isEmpty() || !c.getCpf().matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
+        boolean validaEmail = c.getEmail().isEmpty() || c.getEmail().length() > 60
+                || !c.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        boolean validaLogradouro = c.getLogradouro().length() > 50 || c.getLogradouro().isEmpty();
+        boolean validaNumero = c.getNumero().length() > 6 || c.getNumero().isEmpty();
+        boolean validaBairro = c.getBairro().length() > 30 || c.getBairro().isEmpty();
+        boolean validaCEP = c.getCep().isEmpty() || !c.getCep().matches("\\d{5}-\\d{3}");
+        
+        return (validaNome || validaSobrenome || validaDataNasc || validaCPF || validaEmail
+                || validaLogradouro || validaNumero || validaBairro || validaCEP);
+    }
 
     protected void processRequest( 
             HttpServletRequest request, 
@@ -63,11 +78,32 @@ public class ClientesServlet extends HttpServlet {
                 c.setBairro( bairro );
                 c.setCep( cep );
                 c.setCidade( ci );
+                
+                boolean temErros = temErrosInputs(c);
+                
+                if(temErros) {
+                    request.setAttribute("cliente", c);
+                    
+                    if(!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+                        request.setAttribute("cpfInvalido", true);
+                    }
+                    
+                    if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                        request.setAttribute("emailInvalido", true);
+                    }
+                    
+                    if(!cep.matches("\\d{5}-\\d{3}")) {
+                        request.setAttribute("cepInvalido", true);
+                    }
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/clientes/erro.jsp" );
+                } else {
+                    dao.salvar( c );
 
-                dao.salvar( c );
-
-                disp = request.getRequestDispatcher(
-                        "/formularios/clientes/listagem.jsp" );
+                    disp = request.getRequestDispatcher(
+                            "/formularios/clientes/listagem.jsp" );
+                }                
 
             } else if ( acao.equals( "alterar" ) ) {
 
@@ -100,11 +136,20 @@ public class ClientesServlet extends HttpServlet {
                 c.setBairro( bairro );
                 c.setCep( cep );
                 c.setCidade( ci );
+                
+                boolean temErros = temErrosInputs(c);
+                
+                if(temErros) {
+                    request.setAttribute("cliente", c);
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/clientes/erro.jsp" );
+                } else {
+                    dao.atualizar( c );
 
-                dao.atualizar( c );
-
-                disp = request.getRequestDispatcher(
-                        "/formularios/clientes/listagem.jsp" );
+                    disp = request.getRequestDispatcher(
+                            "/formularios/clientes/listagem.jsp" );
+                }                
 
             } else if ( acao.equals( "excluir" ) ) {
 

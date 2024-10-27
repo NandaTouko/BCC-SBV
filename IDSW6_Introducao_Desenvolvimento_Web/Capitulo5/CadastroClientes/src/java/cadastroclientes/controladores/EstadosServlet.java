@@ -14,6 +14,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet( name = "EstadosServlet", 
              urlPatterns = { "/processaEstados" } )
 public class EstadosServlet extends HttpServlet {
+    protected boolean temErrosInputs(Estado e) {
+        boolean validaNome = e.getNome().length() > 30 || e.getNome().isEmpty();
+        boolean validaSigla = e.getSigla().length() > 2 || e.getSigla().isEmpty();
+        
+        return (validaNome || validaSigla);
+    }
     
     protected void processRequest( 
             HttpServletRequest request, 
@@ -36,9 +42,11 @@ public class EstadosServlet extends HttpServlet {
                 Estado e = new Estado();
                 e.setNome( nome );
                 e.setSigla( sigla );
+                
+                boolean temErros = temErrosInputs(e);
                                 
-                if(nome.length() > 30 || nome.isEmpty() || sigla.length() > 2 || sigla.isEmpty()) {                   
-                    request.setAttribute( "estado", e );
+                if(temErros) {                   
+                    request.setAttribute("estado", e);
                     
                     disp = request.getRequestDispatcher(
                             "/formularios/estados/erro.jsp" );
@@ -60,7 +68,9 @@ public class EstadosServlet extends HttpServlet {
                 e.setNome( nome );
                 e.setSigla( sigla );
                 
-                if(nome.length() > 30 || nome.isEmpty() || sigla.length() > 2 || sigla.isEmpty()) {
+                boolean temErros = temErrosInputs(e);
+                
+                if(temErros) {
                     request.setAttribute( "estado", e );
                     
                     disp = request.getRequestDispatcher(
