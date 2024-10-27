@@ -40,10 +40,8 @@
                 </c:if>
                     
                 <c:if test="${requestScope.cpfInvalido}">
-                    <li>
-                        O CPF ${requestScope.cliente.cpf} é inválido. 
-                        O CPF precisa estar no formato XXX.XXX.XXX-XX e todos os dígitos precisam ser números.
-                    </li>
+                    <li>O CPF ${requestScope.cliente.cpf} é inválido, pois 
+                        precisa estar no formato XXX.XXX.XXX-XX e todos os dígitos precisam ser números.</li>
                 </c:if>
                     
                 <c:if test="${requestScope.cliente.email eq ''}">
@@ -55,12 +53,10 @@
                 </c:if>
                     
                 <c:if test="${requestScope.emailInvalido}">
-                    <li>
-                        O e-mail ${requestScope.cliente.email} é inválido. 
-                        O e-mail precisa começar com letras ou números, ter um 
+                    <li>O e-mail ${requestScope.cliente.email} é inválido, pois 
+                        precisa começar com letras ou números, ter um 
                         "@" no meio, seguido por um nome de domínio e terminar 
-                        com um ponto e pelo menos duas letras (como .com ou .org).
-                    </li>
+                        com um ponto e pelo menos duas letras (como .com ou .org).</li>
                 </c:if>
                     
                 <c:if test="${requestScope.cliente.logradouro eq ''}">
@@ -92,10 +88,8 @@
                 </c:if>
                     
                 <c:if test="${requestScope.cepInvalido}">
-                    <li>
-                        O CEP ${requestScope.cliente.cep} é inválido. 
-                        O CEP precisa estar no formato XXXXX-XXX e todos os dígitos precisam ser números.
-                    </li>
+                    <li>O CEP ${requestScope.cliente.cep} é inválido, pois 
+                        precisa estar no formato XXXXX-XXX e todos os dígitos precisam ser números.</li>
                 </c:if>
             </ul>
 

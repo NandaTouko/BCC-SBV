@@ -69,8 +69,12 @@ public class ClientesServlet extends HttpServlet {
                 Cliente c = new Cliente();
                 c.setNome( nome );
                 c.setSobrenome( sobrenome );
-                c.setDataNascimento( Date.valueOf( 
+                
+                if(!dataNascimento.isEmpty()) {
+                    c.setDataNascimento( Date.valueOf( 
                         LocalDate.parse( dataNascimento, dtf ) ) );
+                }
+                
                 c.setCpf( cpf );
                 c.setEmail( email );
                 c.setLogradouro( logradouro );
@@ -127,8 +131,12 @@ public class ClientesServlet extends HttpServlet {
                 c.setId( id );
                 c.setNome( nome );
                 c.setSobrenome( sobrenome );
-                c.setDataNascimento( Date.valueOf( 
-                        LocalDate.parse( dataNascimento, dtf ) ) );
+                
+                if(!dataNascimento.isEmpty()) {
+                    c.setDataNascimento( Date.valueOf( 
+                            LocalDate.parse( dataNascimento, dtf ) ) );
+                }
+                
                 c.setCpf( cpf );
                 c.setEmail( email );
                 c.setLogradouro( logradouro );
@@ -141,6 +149,18 @@ public class ClientesServlet extends HttpServlet {
                 
                 if(temErros) {
                     request.setAttribute("cliente", c);
+                    
+                    if(!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+                        request.setAttribute("cpfInvalido", true);
+                    }
+                    
+                    if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                        request.setAttribute("emailInvalido", true);
+                    }
+                    
+                    if(!cep.matches("\\d{5}-\\d{3}")) {
+                        request.setAttribute("cepInvalido", true);
+                    }
                     
                     disp = request.getRequestDispatcher(
                             "/formularios/clientes/erro.jsp" );
