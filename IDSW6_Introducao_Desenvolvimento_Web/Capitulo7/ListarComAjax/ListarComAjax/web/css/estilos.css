@@ -1,0 +1,73 @@
+body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+a {
+    color: #0484AE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.tabelaListagem {
+    background: #000000;
+}
+
+.tabelaListagem th {
+    background: #EEEEEE;
+    padding: 5px;
+}
+
+.tabelaListagem td {
+    background: #FFFFFF;
+    padding: 5px;
+}
+
+.alinharDireita {
+    text-align: right;
+}
+
+.errorPageCard h3 {
+    color: #ff5232;
+    margin: 0;
+}
+
+.errorPageCard ul {
+    list-style: none;
+    color: #a51b0b;
+    margin-bottom: 20px;
+}
+
+.errorPageCard li::before {
+    content: "\26D2";
+    padding-right: 8px;
+    color: #ff5232;
+    font-weight: bold;
+}
+
+.errorPageCard {
+    padding: 20px;
+    margin: 20px 10px;
+    background-color: #ffdfd4;
+    border-radius: 10px;
+    border: 1px solid #ff5232;
+}
+
+.errorPageCard a {
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    background-color: #a51b0b;
+    color: #ff5232;
+    font-weight: 300;
+}
+
+.errorPageCard a:hover::before {
+    content: "\261A";
+}
