@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculadora</string>
+    <string name="numero01">Digite o número 1</string>
+    <string name="numero02">Digite o número 2</string>
+    <string name="btnSoma">Somar</string>
+    <string name="btnSubtrair">Subtrair</string>
+    <string name="btnMultiplicar">Multiplicar</string>
+    <string name="btnDividir">Dividir</string>
+</resources>
