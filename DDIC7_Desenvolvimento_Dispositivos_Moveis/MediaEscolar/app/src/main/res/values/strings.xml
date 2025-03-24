@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MediaEscolar</string>
+    <string name="nota1">Nota 1:</string>
+    <string name="nota2">Nota 2:</string>
+    <string name="nota3">Nota 3:</string>
+    <string name="textEdtNota1">Digite a nota 1...</string>
+    <string name="textEdtNota2">Digite a nota 2...</string>
+    <string name="textEdtNota3">Digite a nota 3...</string>
+    <string name="nota4">Nota 4:</string>
+    <string name="textEdtNota4">Digite a nota 4...</string>
+    <string name="textButton">Calcular Média</string>
+</resources>
