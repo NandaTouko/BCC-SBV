@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AreaTriangulo</string>
+    <string name="textAltura">Altura:</string>
+    <string name="titulo">Calcular Área do Triângulo</string>
+    <string name="textBase">Base:</string>
+    <string name="textBtnCalcular">Calcular Área</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GasolinaOuEtanol</string>
+    <string name="titulo">Qual compensa combustível mais?</string>
+    <string name="precoGasolina">Preço da Gasolina (R$):</string>
+    <string name="precoEtanol">Preço do Etanol (R$):</string>
+    <string name="btnVerificar">Verificar</string>
+</resources>
