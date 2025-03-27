@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         String qualCompensa = "";
 
         if (gasolina > etanol) {
-            diferencaPercentual = (gasolina - etanol) / (etanol * 100);
+            diferencaPercentual = ((gasolina - etanol) / etanol) * 100;
             qualCompensa = "Etanol";
         } else {
-            diferencaPercentual = (etanol - gasolina) / (gasolina * 100);
+            diferencaPercentual = ((etanol - gasolina) / gasolina) * 100;
             qualCompensa = "Gasolina";
         }
 
