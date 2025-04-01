@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CadastraClienteIntent</string>
+    <string name="titulo">Novo Cliente</string>
+    <string name="textId">ID</string>
+    <string name="textNome">Nome</string>
+    <string name="textIdade">Idade</string>
+    <string name="btnSalvar">Salvar</string>
+</resources>
