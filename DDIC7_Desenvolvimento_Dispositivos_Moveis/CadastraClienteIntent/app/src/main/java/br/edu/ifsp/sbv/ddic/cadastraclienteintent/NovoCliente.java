@@ -37,10 +37,13 @@ public class NovoCliente extends Activity {
                 String nome = edtNome.getText().toString();
                 int idade = Integer.parseInt(edtIdade.getText().toString());
 
-                Cliente cliente = new Cliente(id, nome, idade);
+                Cliente cliente = new Cliente();
+                cliente.setNome(nome);
+                cliente.setID(id);
+                cliente.setIdade(idade);
 
                 Intent it = new Intent();
-                it.putExtra("cliente", "Clicou em sim!");
+                it.putExtra("cliente", cliente);
                 setResult(1, it);
                 finish();
             }
@@ -50,7 +53,7 @@ public class NovoCliente extends Activity {
     @Override
     public void onBackPressed() {
         Intent it = new Intent();
-        it.putExtra("cliente", "Não cadastrou um cliente!");
+        it.putExtra("msg", "Não cadastrou um cliente!");
         setResult(2, it);
         finish();
     }

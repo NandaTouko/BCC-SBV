@@ -5,4 +5,5 @@
     <string name="textNome">Nome</string>
     <string name="textIdade">Idade</string>
     <string name="btnSalvar">Salvar</string>
+    <string name="textClientes">Clientes</string>
 </resources>

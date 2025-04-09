@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ListarProdutos</string>
+    <string name="tituloForm">Novo Produto</string>
+    <string name="textEdtId">ID</string>
+    <string name="textEdtDescricao">Descrição</string>
+    <string name="textEdtValor">Valor</string>
+    <string name="textBtnCadastrar">Cadastrar</string>
+    <string name="tituloListagem">Produtos Cadastrados</string>
+</resources>
