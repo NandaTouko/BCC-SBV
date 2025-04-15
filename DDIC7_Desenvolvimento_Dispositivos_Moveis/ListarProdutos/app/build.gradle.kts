@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "br.edu.ifsp.sbv.ddic.listarclientes"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.edu.ifsp.sbv.ddic.listarclientes"
