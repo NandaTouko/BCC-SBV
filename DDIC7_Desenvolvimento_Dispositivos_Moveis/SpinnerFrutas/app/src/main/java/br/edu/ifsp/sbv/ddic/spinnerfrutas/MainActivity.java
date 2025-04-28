@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Spinner selectFruta;
     private TextView tvSelecao;
+    private ImageView imgFruta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,25 @@ public class MainActivity extends AppCompatActivity {
 
         selectFruta = (Spinner) findViewById(R.id.selectFruta);
         tvSelecao = (TextView) findViewById(R.id.tvSelecao);
+        imgFruta = (ImageView) findViewById(R.id.imgFruta);
 
         selectFruta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 tvSelecao.setText("Item selecionado: " + item);
+
+                if (item.equals("Amora")) {
+                    imgFruta.setImageResource(R.drawable.amora);
+                } else if(item.equals("Banana")) {
+                    imgFruta.setImageResource(R.drawable.banana);
+                } else if(item.equals("Caqui")) {
+                    imgFruta.setImageResource(R.drawable.caqui);
+                } else if(item.equals("Damasco")) {
+                    imgFruta.setImageResource(R.drawable.damasco);
+                } else {
+                    imgFruta.setImageResource(R.drawable.ic_launcher_background);
+                }
             }
 
             @Override
@@ -52,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         options.add("Caqui");
         options.add("Damasco");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, options);
         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         selectFruta.setAdapter(adapter);
     }

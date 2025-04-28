@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">OptionsMenu</string>
+    <string name="menuProfile">Perfil</string>
+    <string name="menuConfig">Configurações</string>
+    <string name="menuLogout">Sair</string>
+</resources>

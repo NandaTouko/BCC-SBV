@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ContextMenu</string>
+    <string name="textBtn">Clique e segure para abrir o ContextMenu!</string>
+    <string name="itemCopiar">Copiar</string>
+    <string name="itemColar">Colar</string>
+    <string name="itemExcluir">Excluir</string>
+</resources>
