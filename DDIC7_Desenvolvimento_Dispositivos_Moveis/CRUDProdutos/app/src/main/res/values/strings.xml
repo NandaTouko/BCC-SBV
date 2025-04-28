@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CRUDProdutos</string>
+    <string name="tituloForm">Novo Produto</string>
+    <string name="textEdtId">ID</string>
+    <string name="textEdtDescricao">Descrição</string>
+    <string name="textEdtValor">Valor</string>
+    <string name="textBtnCadastrar">Cadastrar</string>
+    <string name="tituloListagem">Produtos Cadastrados</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="msgExclusao">Pessoa excluída com sucesso!</string>
+    <string name="msgFalhaExclusao">Não foi possível excluir a pessoa!</string>
+</resources>
