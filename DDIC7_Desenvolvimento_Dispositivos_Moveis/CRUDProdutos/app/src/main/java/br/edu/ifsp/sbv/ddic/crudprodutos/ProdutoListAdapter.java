@@ -39,13 +39,13 @@ public class ProdutoListAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.produtos, null);
 
         TextView id = (TextView) view.findViewById(R.id.textId);
-        id.setText(String.valueOf(p.getID()));
+        id.setText("ID: " + String.valueOf(p.getID()));
 
         TextView descricao = (TextView) view.findViewById(R.id.textDescricao);
-        descricao.setText(p.getDescricao());
+        descricao.setText("Descrição: " + p.getDescricao());
 
         TextView valor = (TextView) view.findViewById(R.id.textValor);
-        valor.setText(String.valueOf(p.getValor()));
+        valor.setText("Valor: " + String.valueOf(p.getValor()));
 
         return view;
     }

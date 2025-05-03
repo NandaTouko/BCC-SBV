@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         p.setDescricao(edtDescricao.getText().toString());
-        p.setValor(Double.valueOf(edtValor.getText().toString()));
+        p.setValor(Double.parseDouble(edtValor.getText().toString()));
 
         if (operacao.equalsIgnoreCase("Novo")) {
             dao.salvar(p);

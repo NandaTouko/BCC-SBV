@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ProdutoDAO extends DAO<Produto> {
 
     public ProdutoDAO(Context context) {
         super(context);
-        campos = new String[]{"id","valor","descricao"};
+        campos = new String[]{"id","descricao","valor"};
         tableName = "produto";
         database = getWritableDatabase();
     }
@@ -71,6 +72,8 @@ public class ProdutoDAO extends DAO<Produto> {
     }
 
     public boolean salvar(Produto produto) {
+        Log.d("DEBUG", "Produto a ser salvo: " + produto.getDescricao() + " - Valor: " + produto.getValor());
+
         ContentValues values = serializeContentValues(produto);
         if(database.insert(tableName, null, values)>0)
             return true;
@@ -96,17 +99,16 @@ public class ProdutoDAO extends DAO<Produto> {
     private Produto serializeByCursor(Cursor cursor) {
         Produto produto = new Produto();
         produto.setID(cursor.getInt(0));
-        produto.setValor(cursor.getDouble(1));
-        produto.setDescricao(cursor.getString(2));
+        produto.setDescricao(cursor.getString(1));
+        produto.setValor(cursor.getDouble(2));
 
         return produto;
     }
 
     private ContentValues serializeContentValues(Produto produto) {
         ContentValues values = new ContentValues();
-        values.put("id", produto.getID());
-        values.put("valor", produto.getValor());
         values.put("descricao", produto.getDescricao());
+        values.put("valor", produto.getValor());
 
         return values;
     }

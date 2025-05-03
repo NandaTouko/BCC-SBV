@@ -17,8 +17,8 @@ public class DAO <T extends Object> extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PRODUTO = "CREATE TABLE produto ( "
             + " id integer primary key autoincrement NOT NULL,"
-            + " valor double,"
-            + " descricao varchar(75));";
+            + " descricao varchar(75),"
+            + " valor double);";
 
     public DAO(Context context) {
 

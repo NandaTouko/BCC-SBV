@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="novo"
     tools:context=".MainActivity">
 
     <TextView
@@ -32,6 +33,9 @@
         android:ems="10"
         android:hint="@string/textEdtId"
         android:inputType="number"
+        android:editable="false"
+        android:enabled="false"
+        tools:ignore="Deprecated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -66,16 +70,33 @@
 
     <Button
         android:id="@+id/btnCadastrar"
-        android:layout_width="345dp"
+        android:layout_width="159dp"
         android:layout_height="57dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#FF5722"
-        android:onClick="salvar"
+        android:backgroundTint="#FF9800"
+        android:onClick="novo"
         android:text="@string/textBtnCadastrar"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtValor" />
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="162dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FF5722"
+        android:onClick="salvar"
+        android:text="@string/btnTextSalvar"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtValor" />
 
@@ -92,13 +113,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/btnSalvar"
         app:layout_constraintVertical_bias="0.0" />
 
     <ListView
         android:id="@+id/lvProdutos"
         android:layout_width="356dp"
-        android:layout_height="259dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"

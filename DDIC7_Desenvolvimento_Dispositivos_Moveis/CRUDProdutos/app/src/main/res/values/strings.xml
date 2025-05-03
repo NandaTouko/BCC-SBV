@@ -10,4 +10,5 @@
     <string name="nao">Não</string>
     <string name="msgExclusao">Pessoa excluída com sucesso!</string>
     <string name="msgFalhaExclusao">Não foi possível excluir a pessoa!</string>
+    <string name="btnTextSalvar">Salvar</string>
 </resources>
