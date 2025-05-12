@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProgressBar</string>
+    <string name="btnIncrementar">Incrementar 10% na Barra</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DialogAlertCores</string>
+    <string name="btnAlterarBackground">Selecionar Cor de Fundo</string>
+</resources>

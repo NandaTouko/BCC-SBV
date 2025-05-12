@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ExemploServices</string>
+    <string name="campoPesquisa">Digite o nome do pokemon</string>
+</resources>
