@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1077871624777",
+    "project_id": "crudprodutosfirebase",
+    "storage_bucket": "crudprodutosfirebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077871624777:android:364dcc8dd6b25026ce7598",
+        "android_client_info": {
+          "package_name": "br.edu.ifsp.sbv.ddic.crudprodutosfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsdj0tkEb69_54xmoPDZpDjmTPta6UXTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
