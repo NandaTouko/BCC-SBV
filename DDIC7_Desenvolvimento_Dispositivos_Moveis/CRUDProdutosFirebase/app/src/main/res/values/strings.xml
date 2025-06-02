@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">CRUDProdutosFirebase</string>
-    <string name="tituloForm">Novo Produto</string>
-    <string name="textEdtId">ID</string>
-    <string name="textEdtDescricao">Descrição</string>
-    <string name="textEdtValor">Valor</string>
-    <string name="textBtnCadastrar">Cadastrar</string>
-    <string name="tituloListagem">Produtos Cadastrados</string>
-    <string name="sim">Sim</string>
-    <string name="nao">Não</string>
-    <string name="msgExclusao">Pessoa excluída com sucesso!</string>
-    <string name="msgFalhaExclusao">Não foi possível excluir a pessoa!</string>
-    <string name="btnTextSalvar">Salvar</string>
+    <string name="titleAdd">Cadastrar Produto</string>
+    <string name="edtDescription">Descrição</string>
+    <string name="edtValue">Valor</string>
+    <string name="btnAdd">Cadastrar</string>
+    <string name="titleList">Produtos</string>
 </resources>
