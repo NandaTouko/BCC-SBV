@@ -5,4 +5,7 @@
     <string name="edtValue">Valor</string>
     <string name="btnAdd">Cadastrar</string>
     <string name="titleList">Produtos</string>
+    <string name="titleEdit">Editar Produto</string>
+    <string name="btnEdit">Editar</string>
+    <string name="info">Clique para editar e pressione para deletar!</string>
 </resources>

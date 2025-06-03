@@ -70,6 +70,7 @@ public class AddProductActivity extends AppCompatActivity {
                 Toast.makeText(AddProductActivity.this, "Cadastrado!", Toast.LENGTH_SHORT).show();
                 edtDescription.getText().clear();
                 edtValue.getText().clear();
+                finish();
             }
         });
     }

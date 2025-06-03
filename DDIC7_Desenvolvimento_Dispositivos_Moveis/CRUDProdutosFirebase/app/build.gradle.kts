@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.firebaseui:firebase-ui-database:8.0.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
